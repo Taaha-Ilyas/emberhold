@@ -1017,6 +1017,11 @@ button:hover kbd,button:focus-visible kbd{opacity:1}
 .visitor .stc{height:auto}
 .visitor .vt{position:static;background:none;padding:10px 14px 10px 4px;align-content:center}
 @media (max-width:520px){.visitor{grid-template-columns:1fr}.visitor .vt{padding:10px 12px}}
+.slots{display:grid;gap:8px;margin-top:10px}.slot{display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:center;padding:10px 12px;border-radius:14px;background:var(--card);border:1px solid var(--line)}
+.slot.on{border-color:var(--brass);box-shadow:0 0 0 1px var(--brass) inset}.slot.empty{opacity:.8}.slot b{display:block;font:700 18px var(--f-display)}.slot small{color:var(--muted)}
+.snum{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font:800 20px var(--f-display);background:rgba(255,255,255,.06);color:var(--brass)}.sbtns{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+@media (max-width:520px){.slot{grid-template-columns:36px 1fr}.sbtns{grid-column:1/-1}}
+.tslot{background:rgba(8,10,14,.55);backdrop-filter:blur(4px)}
 /* ===== Update 13+ ===== */
 .title{justify-content:space-between;padding:max(7vh,56px) 16px max(9vh,64px);position:absolute;isolation:isolate}
 #tbg{position:fixed;inset:0;width:100vw;height:100vh;z-index:-2;display:block;background:#000}
@@ -3477,7 +3482,7 @@ function upgrade(o){if(!o||typeof o!=='object')return fresh();
   return fresh()}
 const SAVE_KEY='emberhold-save-v11';
 function load(){try{for(const k of[SAVE_KEY,'emberhold-save-v10','emberhold-save-v9','emberhold-save-v8','emberhold-save-v7','emberhold-save-v6','emberhold-save-v5','emberhold-save-v4','emberhold-save-v3','emberhold-save-v2','emberhold-save-v1']){const r=localStorage.getItem(k);if(r)return upgrade(JSON.parse(r))}}catch(e){console.error(e)}return fresh()}
-function persist(){if(save){if(save.gold>save.cnt.maxGold)save.cnt.maxGold=save.gold}try{localStorage.setItem(SAVE_KEY,JSON.stringify(save))}catch(e){}}
+function persist(){if(save){if(save.gold>save.cnt.maxGold)save.cnt.maxGold=save.gold}save.lastPlayed=Date.now();try{localStorage.setItem(slotKey(curSlot()),JSON.stringify(save))}catch(e){}}
 function gearSum(){const g={spw:{},skilldmg:0,skillcd:0,skillmana:0,div:{},cleave:0,thru:0,execute:0,dmg:0,melee:0,ranged:0,spell:0,crit:0,gold:0,xp:0,train:0,hp:0,regen:0,leech:0,mana:0,dodge:0,block:0,drops:0,rarity:0,bowcd:0,flamecd:0,multi:0,scorch:0,pierce:0,elem:0,leg:{},res:{}};
   for(const sl of SLOTS){if(!slotOn(sl))continue;const it=eqItem(sl);if(!it)continue;for(const a of it.aff)if(a[0] in g)g[a[0]]+=a[1];if(it.leg)g.leg[it.leg]=1;if(it.div)g.div[it.div]=1;if(it.spw)g.spw[it.spw]=1;if(it.elem&&sl==='armor')g.res[it.elem]=(g.res[it.elem]||0)+(shopPerk('enchanter',4)?50:35)}return g}
 function D(){
@@ -8099,6 +8104,30 @@ ACH.push(
     'Mystery rolls moved to the Curio Bazaar, next to the bundles.']],
   ['Title screen',[
     'A new cinematic title screen tours the game: Ashwood Forest, Frostfang Pass, the Ashen Wyrm, the Hydra, three worlds of the Rift and the Hollow King himself, with your own hero and pets.']])}}
+/* ================= Hotfix: save slots ================= */
+/* Slot 1 keeps the original save key, so every existing save is already in it. */
+const SLOT_N=4,SLOT_KEY='emberhold-slot';
+const slotKey=i=>i===0?SAVE_KEY:SAVE_KEY+'-slot'+i;
+function curSlot(){try{const v=+localStorage.getItem(SLOT_KEY);return v>=0&&v<SLOT_N?v:0}catch(e){return 0}}
+function setSlot(i){try{localStorage.setItem(SLOT_KEY,String(i))}catch(e){}}
+{const ld=load;load=function(){const s=curSlot();if(s===0)return ld();try{const r=localStorage.getItem(slotKey(s));if(r)return upgrade(JSON.parse(r))}catch(e){console.error(e)}return fresh()}}
+function slotInfo(i){try{const r=localStorage.getItem(slotKey(i));if(!r)return null;const s=JSON.parse(r);if(!s||!s.started)return null;return{name:s.name||'Hero',lvl:s.lvl||1,ng:s.ng||0,gold:s.gold||0,when:s.lastPlayed||0,pets:(s.pets||[]).length,fin:!!(s.rift&&s.rift.fin)}}catch(e){return null}}
+const agoTxt=ms=>{if(!ms)return'';const m=Math.round((Date.now()-ms)/60000);return m<1?'just now':m<60?m+' min ago':m<1440?Math.round(m/60)+' h ago':Math.round(m/1440)+' days ago'};
+function switchSlot(i){if(i===curSlot())return;persist();setSlot(i);save=load();applyMigrated();INK.on=save.ink!==false;curTheme='';applyTheme();persist();shownGold=null;closeModal();renderTitle();show('title');sfx('tier')}
+function showSlots(){const cur=curSlot();
+  const body=`<p class="note">Each slot is its own hero with its own progress. Saving is automatic.</p><div class="slots">`+Array.from({length:SLOT_N},(_,i)=>{const S=slotInfo(i),on=i===cur;
+    return`<div class="slot ${on?'on':''} ${S?'':'empty'}"><span class="snum">${i+1}</span><div>${S?`<b>${esc(S.name)}</b><small>Level ${S.lvl}${S.ng?' · New Game+ '+S.ng:''} · ${fmt(S.gold)} gold · ${S.pets} pet${S.pets===1?'':'s'}${S.when?' · '+agoTxt(S.when):''}</small>`:`<b>Empty slot</b><small>Start a new hero here.</small>`}</div>
+      <div class="sbtns">${on?'<span class="eqd">Playing</span>':`<button class="btn sm" type="button" data-slot-go="${i}">${S?'Load':'New hero'}</button>`}${S?`<button class="btn sm alt" type="button" data-slot-del="${i}" aria-label="Delete slot ${i+1}">Delete</button>`:''}</div></div>`}).join('')+`</div>`;
+  modal({title:'Save slots',body,buttons:[{label:'Close',cls:'alt'}],x:true});
+  $$('[data-slot-go]').forEach(b=>b.addEventListener('click',()=>{audio();switchSlot(+b.dataset.slotGo)}));
+  $$('[data-slot-del]').forEach(b=>b.addEventListener('click',()=>{const i=+b.dataset.slotDel,S=slotInfo(i);
+    modal({title:'Delete slot '+(i+1)+'?',body:`<p><b>${esc(S?S.name:'This hero')}</b>${S?' (level '+S.lvl+')':''} will be gone for good. This cannot be undone.</p>`,buttons:[{label:'Delete for good',cls:'danger',on:()=>{try{localStorage.removeItem(slotKey(i))}catch(e){}if(i===curSlot()){save=fresh();persist();curTheme='';applyTheme();renderTitle();show('title')}toast('Slot '+(i+1)+' deleted');setTimeout(showSlots,60)}},{label:'Keep it',cls:'alt',on:()=>setTimeout(showSlots,60)}]})}))}
+/* A slot button on the title screen and in Settings */
+{const rt=renderTitle;renderTitle=function(){rt();const f=$('#tform');if(!f)return;const ex=$('#t-slots');if(ex){ex.textContent=`Save slot ${curSlot()+1} of ${SLOT_N} · switch`;return}const b=document.createElement('button');b.type='button';b.className='ghost tslot';b.id='t-slots';b.innerHTML=`Save slot ${curSlot()+1} of ${SLOT_N} · switch`;b.addEventListener('click',()=>{audio();showSlots()});
+  const bot=f.parentNode;const n=bot.querySelector('[data-notes]');if(n)bot.insertBefore(b,n);else bot.appendChild(b)}}
+{const ss=showSettings;showSettings=function(){ss();const row=$('#s-auto')&&$('#s-auto').closest('.set-row');if(!row)return;
+  row.insertAdjacentHTML('beforebegin',`<div class="set-row"><div><b>Save slot ${curSlot()+1} of ${SLOT_N}</b><p class="note">Play up to ${SLOT_N} heroes, each with their own progress. Switching takes you to the title screen.</p></div><button class="btn sm" type="button" id="s-slot">Save slots</button></div>`);
+  $('#s-slot').addEventListener('click',()=>{persist();closeModal();show('title');renderTitle();setTimeout(showSlots,60)})}}
 
 function applyMigrated(){if(save._migrated){const v4=save._migrated==='v4',v5=save._migrated==='v5',v6=save._migrated==='v6',v7=save._migrated==='v7',v8=save._migrated==='v8',v9=save._migrated==='v9',v10=save._migrated==='v10';delete save._migrated;for(const f of FEATURES)if(f.on()&&!(v4&&NEW_FEATS.includes(f.id))&&!(v5&&NEW_FEATS5.includes(f.id))&&!(v6&&NEW_FEATS6.includes(f.id))&&!(v7&&NEW_FEATS7.includes(f.id))&&!(v8&&NEW_FEATS8.includes(f.id))&&!(v9&&NEW_FEATS9.includes(f.id))&&!(v10&&NEW_FEATS13.includes(f.id)))save.seen[f.id]=1;if(!v5&&!v6&&!v7&&!v8&&!v9&&!v10)save.seenRows=rowsOpen()}}
 function boot(data){save=data&&data.save?upgrade(data.save):load();applyMigrated();
