@@ -1245,6 +1245,46 @@ html[data-font="pixel"] .btn{font-size:15px}
 .nfeat:not(:has(.nshot)){grid-template-columns:1fr}
 @media (max-width:700px){.nfeat{grid-template-columns:1fr}}
 .zone.ext .eyebrow svg{width:16px;height:16px;vertical-align:-3px}
+.story canvas,.story .stbox,.story .stskip{transition:opacity .35s}
+.story.dark canvas,.story.dark .stbox,.story.dark .stskip{opacity:0}
+.story.out{transition:opacity .6s}
+button.ymult{color:var(--parch);text-align:right;cursor:pointer}button.ymult:hover{border-color:var(--good)}
+.tmtabs{flex-wrap:wrap;margin:8px 0}
+.tmlist{display:grid;gap:6px}
+.tmr{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;background:var(--deep);border:1px solid var(--line);border-radius:12px;padding:10px 14px}
+.tmr small{display:block;color:var(--muted);font-size:13px}.tmr em{font-style:normal;font:800 18px var(--f-display);color:var(--good)}
+.tmr.off{opacity:.55}.tmr.off em{color:var(--muted)}
+.tmr.sum{border-color:rgba(134,207,124,.5)}.tmr.tot{border-color:var(--brass);background:linear-gradient(90deg,rgba(227,181,83,.14),transparent),var(--deep)}.tmr.tot em{color:var(--brass);font-size:22px}
+/* museum: a slim bar like the visiting traders */
+.museum{display:grid;grid-template-columns:190px minmax(0,1fr);align-items:center;border-color:rgba(227,181,83,.45);border-radius:16px;margin-top:12px}
+.museum canvas{width:190px;height:auto;aspect-ratio:400/220}
+.museum .bar{padding:8px 16px;gap:10px}
+@media (max-width:620px){.museum{grid-template-columns:120px minmax(0,1fr)}.museum canvas{width:120px}}
+/* map: the captives sit in the header, not on top of the weakness */
+.zone .zm{display:none}
+.zone .zh{display:flex;gap:10px;align-items:flex-start}
+.zone .zh .captives{position:static;margin-left:auto;display:flex;gap:6px;flex-shrink:0}
+.zone .zh .captives+.chips{margin-left:0}
+.capb small{margin-top:-4px}
+/* level road */
+.road2{display:grid;gap:10px}
+.rold{background:var(--deep);border:1px solid var(--line);border-radius:14px;padding:10px 14px}.rold summary{cursor:pointer;font-weight:800;color:var(--muted);min-height:32px;display:flex;align-items:center}
+.rold .rlvl{border:0;background:none;padding:8px 0 0}
+.rlvl{background:var(--deep);border:1px solid var(--line);border-radius:14px;padding:12px 14px;display:grid;gap:8px;position:relative}
+.rlh{display:flex;align-items:center;gap:10px}.rlh b{font:700 19px var(--f-display)}.rlh small{color:var(--muted)}
+.rlh .rl{display:grid;place-items:center;min-width:36px;height:36px;border-radius:50%;background:var(--panel);border:2px solid var(--line);font-weight:800}
+.rlvl.done .rl{border-color:var(--good);color:var(--good)}.rlvl.here{border-color:var(--brass)}.rlvl.here .rl{background:var(--brass);color:var(--ink);border-color:var(--brass)}
+.rlvl.next{border-style:dashed;border-color:rgba(241,230,201,.35)}
+.rlvl.fresh{border-color:var(--good);box-shadow:0 0 0 2px rgba(134,207,124,.5),0 0 22px rgba(134,207,124,.25);animation:popin .5s both}
+.rlvl .rnew{position:static;margin-left:auto}
+.rlist{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.rlist li{display:grid;grid-template-columns:40px minmax(0,1fr);gap:10px;align-items:center;background:var(--panel);border-left:4px solid var(--kc);border-radius:10px;padding:8px 10px}
+.rlist .ric svg{width:32px;height:32px}.rlist em{display:block;font:800 11px var(--f-body);font-style:normal;letter-spacing:.1em;text-transform:uppercase;color:var(--kc)}.rlist b{display:block}.rlist small{display:block;color:var(--muted);font-size:13px;line-height:1.3}
+.rchips{display:flex;flex-wrap:wrap;gap:6px}.rchips span{display:inline-flex;align-items:center;gap:5px;background:var(--panel);border:1px solid color-mix(in srgb,var(--kc) 50%,var(--line));border-radius:999px;padding:3px 10px 3px 6px;font-size:13px}.rchips svg{width:16px;height:16px}
+.rcloud2{position:relative;min-height:220px;border-radius:30px;overflow:hidden;display:grid;place-items:center;text-align:center;padding:24px;background:radial-gradient(ellipse at 30% 30%,#3a3a4a,transparent 60%),radial-gradient(ellipse at 70% 60%,#2e2e3e,transparent 65%),#22222c}
+.rcloud2 i{position:absolute;border-radius:50%;background:#4a4a5c;filter:blur(18px);opacity:.7;animation:drift 9s ease-in-out infinite alternate}
+.rcloud2 p{position:relative;color:#c4c4d4;font-weight:700;max-width:32ch}.rcloud2 p small{display:block;font-weight:600;color:#8a8a9c;margin-top:4px}
+.ynext{margin-top:12px;background:var(--deep);border:1px dashed var(--line);border-radius:14px;padding:10px 14px}.ynext .eyebrow{margin:0}.ynext .soon{margin:4px 0 0}
 </style>
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
 </head>
@@ -3465,24 +3505,24 @@ Object.assign(ICON,{
 /* ---------- The story and the people of Emberhold ---------- */
 const STORY={
   prologue:[
-    {bg:'night',t:'Long ago, the Hollow King burned the realm, and was sealed away beneath the Hollow Throne.',art:'throne'},
-    {bg:'night',t:'This spring the seal cracked. His eight generals rose and took the eight regions of the realm.',art:'generals'},
-    {bg:'village',t:'They raided Emberhold in the night, and carried off its teachers, its traders and its friends.',art:'raid'},
-    {bg:'dawn',t:'One squire was left in the village with a borrowed sword and nothing else.',art:'hero'},
-    {bg:'dawn',t:'{name} set out for Ashwood Forest to bring them home. Alone. Untrained. Still bleeding from the raid.',art:'road'}],
+    {bg:'night',t:'Long ago, a cruel king ruled from a hollow throne. The people fought back and locked him away.',art:'throne'},
+    {bg:'night',t:'Now the lock has broken. The Hollow King has sent eight generals, one to every land.',art:'generals'},
+    {bg:'village',t:'One night they attacked Emberhold. They took the teachers, the traders and our friends.',art:'raid'},
+    {bg:'dawn',t:'Only {name} was left, with an old sword and a lot of courage.',art:'hero'},
+    {bg:'dawn',t:'So {name} set off to bring everyone home. No training. No plan. Just a sword.',art:'road'}],
   fall:[
-    {bg:'forest',t:'The forest was too much. {name} fell in the ferns, and everything went dark.',art:'fall'},
+    {bg:'forest',t:'It did not go well. The forest was too strong, and {name} fell.',art:'fall'},
     {bg:'yard',t:'...',art:'wake'}],
   master:[
-    {bg:'yard',t:'"Easy now. You took a beating out there." An old swordmaster sat by the fire.',art:'master',who:'master'},
-    {bg:'yard',t:'"I am Oren. I taught every fighter in this village, before the generals took my students."',art:'master',who:'master'},
-    {bg:'yard',t:'"Courage is not enough. Train here first. Every drill in this yard makes you stronger in battle."',art:'yard',who:'master'},
-    {bg:'yard',t:'"The generals keep my students and our townsfolk in cages. Beat a general and its captive comes home."',art:'cages',who:'master'},
-    {bg:'yard',t:'"Each student I get back can teach you more, and my yard can push you further. Now, pick up that sword."',art:'master',who:'master'}],
+    {bg:'yard',t:'"Easy now. You took a nasty beating out there." An old swordmaster sat by the fire.',art:'master',who:'master'},
+    {bg:'yard',t:'"I am Oren. I trained the fighters of this village, until the generals took my students."',art:'master',who:'master'},
+    {bg:'yard',t:'"Courage is a good start, but you need skill too. Train here. Every drill makes you stronger in battle."',art:'yard',who:'master'},
+    {bg:'yard',t:'"The generals keep my students and our townsfolk locked in cages. Beat a general, and its prisoner comes home."',art:'cages',who:'master'},
+    {bg:'yard',t:'"Every student you free can teach you more. Now pick up that sword. We start today."',art:'master',who:'master'}],
   finale:[
-    {bg:'void',t:'The Hollow King falls, and his crown rolls into the dark.',art:'throne'},
-    {bg:'dawn',t:'Emberhold lights its lanterns again. Every captive is home.',art:'village'},
-    {bg:'dawn',t:'But the seal is broken for good. Something older stirs behind the stars...',art:'rift'}]};
+    {bg:'void',t:'The Hollow King falls, and his crown rolls away into the dark.',art:'throne'},
+    {bg:'dawn',t:'The lanterns of Emberhold shine again. Everyone is home.',art:'village'},
+    {bg:'dawn',t:'But the old lock is broken for good. Something else is waking up beyond the stars...',art:'rift'}]};
 
 /* Everyone you can meet. kind: master, trainer, helper, hidden, trader, keeper */
 const NPCS=[
@@ -3672,7 +3712,7 @@ function fameFx(){const r=save?fameRank():0;return{price:r,gold:r*2,xp:r}}
 const RAR_LV=[1,1,2,4,7,40];
 const rarOpen=r=>r<=0||r>5||!save||save.lvl>=RAR_LV[r]||(save.ng||0)>0;
 const rarCapNow=()=>{let m=0;for(let r=1;r<=5;r++)if(rarOpen(r))m=r;return m};
-const CHEST_LV=[1,3,6,10,15];
+const CHEST_LV=[1,3,8,12,20];
 const chestOpen=t=>t>4||!save||save.lvl>=CHEST_LV[t]||(save.ng||0)>0;
 LVROAD.push({lv:2,id:'r_rare',ic:'gem',n:'Rare items',d:'Rare gear (blue) can now drop, with two bonuses each.',rar:2},
   {lv:4,id:'r_epic',ic:'gem',n:'Epic items',d:'Epic gear (purple) can now drop, with three bonuses each.',rar:3},
@@ -3683,7 +3723,12 @@ LVROAD.push({lv:2,id:'r_rare',ic:'gem',n:'Rare items',d:'Rare gear (blue) can no
   {lv:15,id:'c_royal',ic:'chest',n:'Royal chests',d:'Royal chests with three items, the rarest of all before New Game+.'},
   {lv:5,id:'vendor_q',ic:'vendor',n:'Pawnbroker deals',d:'Quill the Pawnbroker buys your spare gear. Invest in his shop to sell straight from your Inventory.'},
   {lv:12,id:'gallery',ic:'gallery',n:'The Gallery',d:'A hall in your homestead shows every gear set in the realm and the pieces you still need.'});
+/* Hotfix: unlocks come one or two at a time early on, instead of a flood after the first expeditions */
+const LV_OLD={},LV_NEW={market:2,r_rare:2,c_iron:3,house:4,r_epic:4,brewery:5,skilltree:6,slot1:6,r_leg:7,frost:8,c_silver:8,bazaar:9,golden:10,vendor_q:10,wevents:11,farm:12,c_gold:12,menagerie:13,brews:14,slot2:14,dungeon:15,museum:16,storm:17,enchanter:18,vet1:18,yard:19,gallery:20,c_royal:20,bless:21,slot3:22,vet2:23,holy:24,workshop:25,vet3:26,slot4:28,vet4:30,slot5:32};
+for(const L of LVROAD){LV_OLD[L.id]=L.lv;if(LV_NEW[L.id]!=null)L.lv=LV_NEW[L.id]}
 LVROAD.sort((a,b)=>a.lv-b.lv);for(const L of LVROAD)LVR[L.id]=L;
+/* heroes who already had something open keep it */
+function keepOldUnlocks(s){if(!s||s.lv14b)return;s.legacy=s.legacy||{};for(const id in LV_OLD)if(LV_OLD[id]<=s.lvl&&LVR[id]&&LVR[id].lv>s.lvl)s.legacy[id]=1;s.lv14b=1}
 const RAR_ROAD={2:'r_rare',3:'r_epic',4:'r_leg'};
 
 /* ---------- Hidden paths: a secret extension to every region ---------- */
@@ -4120,7 +4165,7 @@ function drawFolk(c,x,y,o){
   const s=o.s||1,t=o.t||0,F=o.flash,K=v=>F?'#ffffff':v;
   c.save();c.translate(x,y);c.scale(s*(o.face||1),s);
   if(!o.noShadow){c.fillStyle='rgba(0,0,0,.3)';c.beginPath();c.ellipse(0,0,26,6,0,0,7);c.fill()}
-  const bob=o.walk?-Math.abs(Math.sin(t*9))*3:Math.sin(t*2.6)*1.2,la=o.walk?Math.sin(t*9)*.5:(o.tuck?.5:0);
+  const bob=o.walk?-Math.abs(Math.sin(t*9))*5:Math.sin(t*2.6)*1.2,la=o.walk?Math.sin(t*9)*.68:(o.tuck?.5:0);
   const hip=-44+bob,sh=hip-34,hy=sh-16,hx=3;
   const body=K(o.body),dark=K(shade(o.body,-.3)),skin=K(o.skin||'#d9a47e'),leg=K(o.leg||'#2c2620');
   if(!o.robe){const foot=(px,a)=>{const fx=px+Math.sin(a)*40,fy=hip+Math.cos(a)*(o.tuck?28:40);limb(c,px,hip,fx,fy,9,leg);c.fillStyle=K('#1d1915');c.beginPath();c.ellipse(fx+3,fy+2,7,4,0,0,7);c.fill()};foot(-5,-la);foot(5,la)}
@@ -4422,6 +4467,7 @@ function heroOpts(extra){const L=heroLook();return Object.assign({face:1,body:L.
 function drawHero(c,x,y,s,P,t){
   const idle=t||0;let aF=.35+Math.sin(idle*2.1)*.1,aB=.15+Math.sin(idle*2.1+1)*.07,weapon='sword',pull=0,glowAmt=0,shield=false,lean=Math.sin(idle*1.3)*.025;const at=P.animT||0;
   if(!P.anim&&P.aim==null&&!P.walk){const cyc=(idle+(P.seed||0))%7;if(cyc<.9){const k=Math.sin(cyc/.9*Math.PI);aF+=k*1.2;lean-=k*.04}}
+  if(P.walk&&!P.anim&&P.aim==null){const w=Math.sin(idle*9);aF=.35+w*.5;aB=.15-w*.5;lean=.08+Math.abs(w)*.03}
   if(P.aim!=null){weapon='bow';aF=P.aim;aB=P.aim-.1;pull=P.pull||0}
   else if(P.anim==='strike'){const p=clamp(at/.22,0,1);aF=P.up?lerp(1.3,3.0,easeOut(p)):lerp(2.8,.55,easeOut(p));lean=P.up?-.05:.08*p}
   else if(P.anim==='shoot'){weapon='bow';aF=1.57;aB=1.47;pull=at<.14?at/.14:0}
@@ -5917,7 +5963,7 @@ function training(id){
   T.live=()=>T.count<=0&&!T.done;
   T.mult=()=>Math.min(MM,1+Math.floor(T.combo/10));T.maxM=MM;
   const GN=goalCount();T.r0=G.n;let goalNow=G.n<GN?goalAt(id,G.n):null,goalsHit=0;
-  const gb=goalBase(G),gsess={};function prog(g){const B=k=>(gb[k]||0);return g.k==='combo'?T.bestCombo-(gsess.combo||0):g.k==='spec'?G.spec+T.specN-B('spec'):g.k==='hit'?G.atk+T.atkN-B('atk'):g.k==='gold'?G.gold+T.goldN-B('gold'):g.k==='safe'?G.safe+T.safeN-B('safe'):g.k==='ev'?G.ev+T.evWon-B('ev'):g.k==='total'?G.tot+T.score-B('tot'):T.score-(gsess.score||0)}
+  const gb=goalBase(G),gsess={};function prog(g){const B=k=>(gb[k]||0);return g.k==='combo'?T.combo:g.k==='spec'?G.spec+T.specN-B('spec'):g.k==='hit'?G.atk+T.atkN-B('atk'):g.k==='gold'?G.gold+T.goldN-B('gold'):g.k==='safe'?G.safe+T.safeN-B('safe'):g.k==='ev'?G.ev+T.evWon-B('ev'):g.k==='total'?G.tot+T.score-B('tot'):T.score-(gsess.score||0)}
   function checkGoals(){let done=null;while(goalNow&&prog(goalNow)>=goalNow.n){done=goalNow;G.n++;goalsHit++;Object.assign(gb,{spec:G.spec+T.specN,atk:G.atk+T.atkN,gold:G.gold+T.goldN,safe:G.safe+T.safeN,ev:G.ev+T.evWon,tot:G.tot+T.score});gsess.combo=T.bestCombo;gsess.score=T.score;goalNow=G.n<GN?goalAt(id,G.n):null}
     if(done){G.gs=gb;persist();T.rankPop=2.4;T.note={a:'Rank up · '+DRILLS[id].n+' is now '+rankName(G.n)+' · all training +1%',b:goalText(id,done)+' ✓',t:3,col:rankCol(G.n)};sfx('levelup');setTimeout(()=>jingle([1,1.26,1.5,2]),150);burst(480,150,rankCol(G.n),40,360);burst(170,H-44,rankCol(G.n),20,240)}}
   T.sparks=[];T.pend=0;T.lx=480;T.ly=300;
@@ -6051,10 +6097,18 @@ for(let i=TSETS.length;i--;)if(TSETS[i].ids.some(id=>!TALIS.find(T=>T.id===id)))
 /* Every drill pays the same: your average stat level, every rank in every drill, gems in this drill, freed trainers, and training bonuses */
 const openStatKeys=()=>agiOn()?['str','pre','agi','foc']:['str','pre'];
 function trainerMul(id){const tm=npcFx().tm,ks=DRILLS[id].stats;return Math.pow(ks.reduce((a,k)=>a*(tm[k]||1),1),1/ks.length)}
-function trainXf(id,d0){const ks=openStatKeys(),avg=ks.reduce((a,k)=>a+save.stats[k].l,0)/ks.length;return(1+(avg-1)*.05)*globalTrainMult()*gemMult(id)*trainerMul(id)*(1+(d0||D()).train/100)}
+/* Hotfix: every bonus adds up into one percentage; only training gems multiply on top */
+function trainBreak(id,d0){const d=d0||D(),ks=openStatKeys(),avg=ks.reduce((a,k)=>a+save.stats[k].l,0)/ks.length,yd=yardFx().train||0,hm=houseFx().train||0,L=[];
+  L.push(['Your stat levels','Average level '+Math.round(avg)+': +5% per level',(avg-1)*5]);
+  L.push(['Drill ranks',rankSum()+' ranks across all drills: +1% each',rankSum()]);
+  L.push(['Trainers',trainersFreed()+' of 5 freed',(trainerMul(id)-1)*100]);
+  L.push(['Training Yard upgrades','',yd]);L.push(['Homestead buildings','',hm]);
+  L.push(['Talismans, offerings and perks','',Math.max(0,d.train-yd-hm)]);
+  const add=L.reduce((a,x)=>a+x[2],0),gm=gemMult(id);return{L,add,gm,tot:(1+add/100)*gm}}
+function trainXf(id,d0){return trainBreak(id,d0).tot}
 /* A goal counts only what you do after it starts */
 const goalBase=G=>{if(!G.gs)G.gs={spec:G.spec||0,atk:G.atk||0,gold:G.gold||0,safe:G.safe||0,ev:G.ev||0,tot:G.tot||0};return G.gs};
-function goalProgress(id){const G=goalState(id);if(G.n>=rankCap())return null;const g=goalAt(id,G.n),b=goalBase(G),v=g.k==='combo'?(save.best[id+'_combo']||0):g.k==='session'?0:g.k==='total'?G.tot-b.tot:g.k==='hit'?G.atk-b.atk:(G[g.k]||0)-(b[g.k]||0);return{g,v:Math.max(0,Math.min(g.n,v))}}
+function goalProgress(id){const G=goalState(id);if(G.n>=rankCap())return null;const g=goalAt(id,G.n),b=goalBase(G),v=g.k==='combo'||g.k==='session'?0:g.k==='total'?G.tot-b.tot:g.k==='hit'?G.atk-b.atk:(G[g.k]||0)-(b[g.k]||0);return{g,v:Math.max(0,Math.min(g.n,v))}}
 /* Smaller, looping goals that grow each time round */
 Object.assign(GSCALE,{combo:j=>10+3*j,hit:j=>18*Math.pow(j+1,1.35),spec:j=>5*Math.pow(j+1,1.3),gold:j=>2*Math.pow(j+1,1.3),safe:j=>4*Math.pow(j+1,1.3),session:j=>50*Math.pow(j+1,1.45),total:j=>220*Math.pow(j+1,1.6)});
 
@@ -6063,7 +6117,7 @@ GAMES.str=T=>{
   const C={x:480,y:388},P={t:0,anim:null,animT:0,face:1,up:false,catchT:0},Fr=FRUITS[T.tier];let gs=[],halves=[],splats=[],drops=[],spawn=1.2,stun=0,hurt=0,launch={L:0,R:0,U:0};
   const RING=100,PW=24;
   function add(){const k=pick(['L','U','R']),type=T.ch(0)&&R()<.15?'cup':T.ch(1)&&R()<.2?'shell':'fruit',gold=type==='fruit'&&R()<(T.golden?.5:.07);
-    const sp=(200+R()*40)*T.spd()*(gold?1.45:1)*(type==='cup'?.62:1),st=k==='L'?{x:-30,y:C.y-4}:k==='R'?{x:990,y:C.y-4}:{x:C.x+(R()-.5)*30,y:-30};launch[k]=.35;
+    const sp=(200+R()*40)*T.spd()*(gold?1.45:1)*(type==='cup'?.62:1),st=k==='L'?{x:52,y:C.y-6}:k==='R'?{x:908,y:C.y-6}:{x:C.x+(R()-.5)*30,y:-30};launch[k]=.35;
     gs.push({k,x:st.x,y:st.y,sp,gold,type,hp:type==='shell'?2:1,rot:R()*6,spin:(R()-.5)*8})}
   function smashFx(g){const col=g.gold?'#ffd36a':Fr.col,ju=g.gold?'#fff4c8':Fr.juice;for(const s of[-1,1])halves.push({x:g.x,y:g.y,vx:s*(140+R()*80)+(g.k==='L'?60:g.k==='R'?-60:0),vy:-220-R()*120,rot:g.rot,vr:s*7,s,col,ju,t:0,gold:g.gold});
     for(let i=0;i<14;i++)drops.push({x:g.x,y:g.y,vx:(R()-.5)*420,vy:-R()*360,t:0,col:ju});burst(g.x,g.y,ju,16,300)}
@@ -6093,8 +6147,14 @@ GAMES.str=T=>{
       /* juice on the ground */
       for(const s of splats){c.globalAlpha=Math.max(0,1-s.t/4)*.55;c.fillStyle=s.col;c.beginPath();c.ellipse(s.x,GY+6,s.r,s.r*.28,0,0,7);c.fill()}c.globalAlpha=1;
       /* the fruit launchers and the tree */
-      for(const[s,x]of[[-1,40],[1,920]]){const k=launch[s<0?'L':'R'];c.save();c.translate(x,GY);c.scale(-s,1);c.fillStyle='#4a2f1c';rr(c,-26,-30,52,30,6);c.fill();c.fillStyle='#6a4a2a';c.save();c.translate(0,-28);c.rotate(.12-k*.4);rr(c,-6,-10,46,20,8);c.fill();c.fillStyle='#2a1a10';c.beginPath();c.ellipse(40,0,5,9,0,0,7);c.fill();c.restore();
-        c.fillStyle='#2a2018';for(const wx of[-16,16]){c.beginPath();c.arc(wx,-2,9,0,7);c.fill()}c.fillStyle='#8a6a46';for(const wx of[-16,16]){c.beginPath();c.arc(wx,-2,4,0,7);c.fill()}c.restore();if(k>.2)burst(x-s*40,GY-30,'#d8d0c0',2,80)}
+      for(const[s,x]of[[-1,46],[1,914]]){const k=launch[s<0?'L':'R'],sh=Math.sin(P.t*40)*k*6;c.save();c.translate(x+sh,GY);
+        /* a small fruit bush: fruit pops out of the top of it */
+        c.fillStyle='rgba(0,0,0,.25)';c.beginPath();c.ellipse(0,0,58,9,0,0,7);c.fill();
+        c.fillStyle='#2f5a24';for(const[bx,by,br]of[[-30,-26,28],[28,-26,28],[0,-44,34],[-14,-62,22],[16,-62,22]]){c.beginPath();c.arc(bx,by-k*4,br,0,7);c.fill()}
+        c.fillStyle='#4a8a3a';for(const[bx,by,br]of[[-22,-34,16],[22,-36,15],[0,-58,17]]){c.beginPath();c.arc(bx,by-k*4,br,0,7);c.fill()}
+        c.fillStyle=Fr.col;for(const[fx,fy]of[[-24,-44],[18,-30],[4,-70],[-8,-22],[30,-52]]){c.beginPath();c.arc(fx,fy-k*4,5,0,7);c.fill()}
+        c.fillStyle='rgba(255,255,255,.35)';for(const[fx,fy]of[[-25,-46],[17,-32],[3,-72]]){c.beginPath();c.arc(fx,fy-k*4,1.6,0,7);c.fill()}
+        c.restore();if(k>.3&&R()<.3)burst(x,GY-70,'#4a8a3a',2,90)}
       {const sh=launch.U*10;c.fillStyle='#4a3324';c.fillRect(C.x-8,0,16,26);c.fillStyle='#3a6a2a';for(let i=0;i<9;i++){c.beginPath();c.arc(C.x-110+i*28,6+Math.sin(i*1.7+sh)*4+(i%2)*10,26,0,7);c.fill()}c.fillStyle='#4a8a3a';for(let i=0;i<7;i++){c.beginPath();c.arc(C.x-80+i*27,14+(i%2)*8+Math.sin(P.t+i)*1.5,18,0,7);c.fill()}
         for(let i=0;i<5;i++){c.save();c.translate(C.x-70+i*35,34+(i%2)*6);drawFruit(c,Fr,7,false,i);c.restore()}}
       /* lanes and the strike ring */
@@ -6123,7 +6183,7 @@ function drawTeacup(c,t,s,held){c.save();c.scale(s,s);if(!held){c.globalAlpha=.4
     const img=rankImg(r);if(img&&img.complete)c.drawImage(img,32,30,64,64);txt(c,DRILLS[id].n+' rank',108,40,`700 13px ${BODY}`,'#93aba5');txt(c,rankName(r),108,64,`800 24px ${DISP}`,rankCol(r));
     if(Rw.ranksUp)txt(c,'+'+Rw.ranksUp+' rank'+(Rw.ranksUp>1?'s':'')+' this session',308,40,`800 13px ${BODY}`,'#86cf7c','right');
     if(gp){bar(c,108,80,196,6,gp.v/gp.g.n,rankCol(r+1));{const gt='Next: '+goalText(id,gp.g);let fs=12;c.font=`600 ${fs}px ${BODY}`;while(fs>9&&c.measureText(gt).width>236){fs--;c.font=`600 ${fs}px ${BODY}`}txt(c,gt,108,100,`600 ${fs}px ${BODY}`,'#f1e6c9')}}else txt(c,r>=RANK_MAX?'Highest rank':'Rank limit '+rankCap()+': free a trainer to go higher',108,96,`700 12px ${BODY}`,'#e3b553');
-    txt(c,'All training ×'+globalTrainMult().toFixed(2),W-24,30,`800 14px ${BODY}`,'#86cf7c','right');c.restore()};return s}}
+    txt(c,'Ranks: +'+rankSum()+'% all training',W-24,30,`800 14px ${BODY}`,'#86cf7c','right');c.restore()};return s}}
 const RANKIMG={};function rankImg(r){if(RANKIMG[r])return RANKIMG[r];const im=new Image();im.src=rankBadge(r,64);RANKIMG[r]=im;return im}
 /* ================= Update 13 art and sound ================= */
 
@@ -7162,7 +7222,7 @@ function battleScene(z,stage,opt){opt=opt||{};const dun=opt.dungeon?DDIFF.find(x
     for(let i=0;i<7;i++){const sp=.35,x=((hsh(i+40)*W*1.6-scroll*sp)%(W*1.6)+W*1.6)%(W*1.6)-W*.3,h=60+hsh(i+44)*60;c.fillStyle='rgba(10,16,14,.16)';c.beginPath();c.moveTo(x-16,GY);c.lineTo(x-4,GY-h);c.lineTo(x+4,GY-h);c.lineTo(x+16,GY);c.fill()}
     for(let i=0;i<22;i++){const x=((hsh(i+60)*W*1.3-scroll)%(W*1.3)+W*1.3)%(W*1.3)-W*.15,y=GY+2+hsh(i+61)*8;c.fillStyle='rgba(20,40,20,.35)';c.beginPath();c.moveTo(x-6,y);c.lineTo(x-2,y-8-hsh(i)*6);c.lineTo(x,y);c.lineTo(x+3,y-10-hsh(i+3)*6);c.lineTo(x+6,y);c.fill()}
     c.fillStyle='rgba(0,0,0,.18)';for(let i=0;i<16;i++){const x=((hsh(i)*W*1.4-scroll)%(W*1.4)+W*1.4)%(W*1.4)-W*.2,y=GY+12+hsh(i+5)*(H-GY-30);c.beginPath();c.ellipse(x,y,6+hsh(i+2)*10,2.5,0,0,7);c.fill()}
-    if(travel&&travel.v>40&&R()<.5)burst(P.x-8,GY-4,'#c8b89a',1,60)}
+    if(travel&&travel.v>40&&R()<.05)burst(P.x-8,GY-4,'#c8b89a',1,40)}
   const SK_ACT={blade:['strike'],bow:['shoot'],magic:['spell'],guard:['guard'],pack:['strike','shoot','spell']};
   function armSkill(i){const S=SLOTS9[i];if(!S||over)return;if(armedI===i){armedI=null;syncArm();floatText(P.x,GY-215,'Skill put away','#93aba5',18);sfx('tick');return}
     const k='sk'+i,r=skEff(S);if(!r){hint('Train '+STATS[skStat(S)].n+' to '+skReq(S,1)+' to use it');return}if(P.cd[k]>0){hint(skName(S,r)+' is recharging');return}
@@ -7208,7 +7268,7 @@ function battleScene(z,stage,opt){opt=opt||{};const dun=opt.dungeon?DDIFF.find(x
   function tutStep(){if(!tutOn||tutPause||over)return;const al=alive();
     if(!tutSeen.strike&&al.some(e=>e.k==='slime'&&e.x<=e.stop+4)){tutSeen.strike=1;tutCall('strike','Strike','Your sword. It hits the foe in front of you, if it is on the ground and close enough. Press Strike (A) now.')}
     else if(!tutSeen.shoot&&al.some(e=>e.fly&&e.x<=e.stop+4)){tutSeen.shoot=1;tutCall('shoot','Shoot','Flying foes are out of reach of your blade. Shoot (S) fires an arrow at your target, wherever it is.')}
-    else if(!tutSeen.guard&&al.some(e=>e.k==='wolf'&&e.wind>.55)){tutSeen.guard=1;tutCall('guard','Block','A foe that lights up is about to hit you. Block (Space) just as the blow lands to take much less damage.')}}
+    else if(!tutSeen.guard&&al.some(e=>e.k==='wolf'&&e.wind>.55)){tutSeen.guard=1;tutCall('guard','Block','A foe that lights up is about to hit you. Block (Space) just as the blow lands to take much less damage. Once your Agility reaches level 5, Block becomes Parry: time it well and you take no damage at all.')}}
   /* ---------- Update 10: skills ---------- */
   function skillName(S,r){for(let i=skfx.length;i--;)if(skfx[i].k==='name')skfx.splice(i,1);skfx.push({k:'name',t:0,life:1.1,txt:skName(S,r),col:SK_BR[S.br].col})}
   function inReach(){const f=frontGround();if(!alive().length){hint('Nothing to hit yet');return null}if(!f){hint('No foe on the ground');return null}if(f.x>f.stop+6){hint('Too far yet');return null}return f}
@@ -7826,7 +7886,7 @@ function renderMap(){refreshGold();$('#map-ng').hidden=!save.ng;$('#map-ng').inn
     for(let s=0;s<SN;s++){const done=s<cl,can=open&&s<=cl,bs=s===BOSS_ST,ms=s===MID_ST;if(s)nodes+=`<span class="trail ${s<=cl&&open?'lit':''}"></span>`;nodes+=`<button type="button" class="node ${bs?'boss':ms?'mid':''} ${done?'done':''} ${can&&!done?'open':''}" data-z="${i}" data-s="${s}" ${can?'':'disabled'} aria-label="${z.n} ${bs?'boss':ms?'guardian':'stage '+(s+1)}">${bs?svg('crown'):ms?svg('skull'):s+1}</button>`}
     const gem=save.gems[i]?`<span class="echip" style="--ec:${GEMS[i].c}">${svg('gem')}${GEMS[i].n}</span>`:'';
     return`<section class="zone ${open?'':'locked'}" style="background:${z.bg}"><div class="zh"><div><p class="eyebrow" style="color:rgba(241,230,201,.75)">Region ${i+1} · suggested level ${recLv(i)}+</p><h2>${open?z.n:'???'}</h2></div><div class="chips">${open&&(save.zoneSeen[i]||save.cleared[i]>0)?'<span class="note" style="color:rgba(241,230,201,.8)">Weak to</span> '+echip(z.weak):open?'<span class="note" style="color:rgba(241,230,201,.7)">Fight here to learn its weakness</span>':''}${gem}</div></div>
-      <p class="zd">${open?z.d:'Defeat '+(zoneOpen(i-1)?FOES[ZONES[i-1].boss].n:'the bosses before it')+' to open this road.'}</p>${open?`<p class="zm">Foes: ${z.foes.map(k=>FOES[k].n).join(', ')}. Guardian: ${FOES[z.mid].n}. Boss: ${FOES[z.boss].n}.</p>`:''}<div class="nodes">${nodes}</div></section>`}).join('')+(shown<ZONES.length-1?`<section class="zone fog" aria-label="Hidden road">${[[8,30,220],[30,10,260],[55,40,240],[78,15,260],[18,70,240],[62,75,280],[90,60,200]].map(([x,y,r],i)=>`<i style="left:${x-12}%;top:${y-30}%;width:${r}px;height:${r*.6}px;animation-delay:${-i*1.7}s"></i>`).join('')}<div class="fogt">${svg('cloud')}<h2>The road beyond is lost in cloud</h2><p class="note">Clear the regions ahead and the mist will lift.</p></div></section>`:'');
+      <p class="zd">${open?z.d:(zoneOpen(i-1)?'Beat the boss of '+ZONES[i-1].n:'Beat the bosses before it')+' to open this road.'}</p>${open?`<p class="zm">Foes: ${z.foes.map(k=>FOES[k].n).join(', ')}. Guardian: ${FOES[z.mid].n}. Boss: ${FOES[z.boss].n}.</p>`:''}<div class="nodes">${nodes}</div></section>`}).join('')+(shown<ZONES.length-1?`<section class="zone fog" aria-label="Hidden road">${[[8,30,220],[30,10,260],[55,40,240],[78,15,260],[18,70,240],[62,75,280],[90,60,200]].map(([x,y,r],i)=>`<i style="left:${x-12}%;top:${y-30}%;width:${r}px;height:${r*.6}px;animation-delay:${-i*1.7}s"></i>`).join('')}<div class="fogt">${svg('cloud')}<h2>The road beyond is lost in cloud</h2><p class="note">Clear the regions ahead and the mist will lift.</p></div></section>`:'');
   $$('.node').forEach(b=>b.addEventListener('click',()=>startBattle(+b.dataset.z,+b.dataset.s)));
   $$('[data-dun]').forEach(b=>b.addEventListener('click',()=>startDungeon(b.dataset.dun)));
 }
@@ -9056,10 +9116,13 @@ function showSlots(){const cur=curSlot();
 let STORY_ON=null;
 function storyScene(key,onDone){const panels=(STORY[key]||[]).map(p=>Object.assign({},p,{t:p.t.replace(/\{name\}/g,save.name||'Luffy')}));if(!panels.length){onDone&&onDone();return}
   let ov=$('#story');if(!ov){ov=document.createElement('div');ov.id='story';ov.className='story';ov.innerHTML='<canvas id="stcv"></canvas><div class="stbox"><span class="stwho" id="stwho"></span><p id="sttxt"></p><span class="stnext" id="stnext">Tap to continue ▸</span></div><button class="ghost stskip" type="button" id="stskip">Skip ▸▸</button>';document.body.appendChild(ov)}
-  ov.hidden=false;ov.classList.remove('out');let i=-1,shown=0,t=0,pt=0,done=false,raf=0,last=performance.now();
+  clearTimeout(ov._ht);ov.hidden=false;ov.classList.remove('out','dark');let i=-1,shown=0,t=0,pt=0,done=false,raf=0,last=performance.now();
   const cv=$('#stcv'),txtEl=$('#sttxt'),who=$('#stwho');
   function next(){if(done)return;const P=panels[i];if(P&&shown<P.t.length){shown=P.t.length;txtEl.textContent=P.t;return}i++;if(i>=panels.length){finish();return}pt=0;shown=0;const Q=panels[i];who.textContent=Q.who?NPCR[Q.who].n:'';who.hidden=!Q.who;sfx('page',1)}
-  function finish(){if(done)return;done=true;cancelAnimationFrame(raf);ov.classList.add('out');setTimeout(()=>{ov.hidden=true;STORY_ON=null;onDone&&onDone()},600)}
+  function finish(){if(done)return;done=true;cancelAnimationFrame(raf);ov.classList.add('dark');
+    /* fade to black, build the next screen behind the black, then fade the black away */
+    setTimeout(()=>{STORY_ON=null;try{onDone&&onDone()}catch(e){console.error(e)}if(STORY_ON)return;
+      requestAnimationFrame(()=>requestAnimationFrame(()=>setTimeout(()=>{if(STORY_ON)return;ov.classList.add('out');ov._ht=setTimeout(()=>{if(!STORY_ON){ov.hidden=true;ov.classList.remove('dark','out')}},650)},220)))},380)}
   function frame(now){if(done)return;const dt=Math.min(.05,(now-last)/1000);last=now;t+=dt;pt+=dt;const P=panels[Math.max(0,i)];
     if(P&&shown<P.t.length){shown=Math.min(P.t.length,shown+dt*42);const s=Math.floor(shown);txtEl.textContent=P.t.slice(0,s);if(Math.floor(shown-dt*42)!==s&&s%3===0)sfx('tick',2.2)}
     const cw=cv.clientWidth,ch=cv.clientHeight,dpr=Math.min(1.5,window.devicePixelRatio||1);if(cv.width!==Math.round(cw*dpr)||cv.height!==Math.round(ch*dpr)){cv.width=Math.round(cw*dpr);cv.height=Math.round(ch*dpr)}
@@ -9075,14 +9138,15 @@ function storyHero(c,x,y,s,t,o){drawHero(c,x,y,s,Object.assign({face:1},o||{}),t
 function drawStoryPanel(c,P,t,pt){const k=Math.min(1,pt/6),zoom=1+k*.06;c.save();c.translate(W/2,H/2);c.scale(zoom,zoom);c.translate(-W/2,-H/2);
   drawBg(c,SBG[P.bg]||'yard',t);if(P.bg==='night'){c.fillStyle='rgba(6,2,16,.55)';c.fillRect(0,0,W,H)}if(P.bg==='dawn'){const g=c.createLinearGradient(0,0,0,H);g.addColorStop(0,'rgba(255,150,90,.18)');g.addColorStop(1,'rgba(40,10,0,.2)');c.fillStyle=g;c.fillRect(0,0,W,H)}
   const foe=(key,x,i,sc)=>{const f=FOES[key];if(!f)return;const e={f:sc?Object.assign({},f,{size:(f.size||1)*sc}):f,t:t+i,x,stop:x,wind:0,lunge:0,flash:0,dead:0,seed:i,fly:false,alt:120,armor:0,armorMax:0,bar:0,heads:3};try{drawFoe(c,e,x,t)}catch(err){}};
+  const foe2=(cx,key,x,i,sc)=>{const f=FOES[key];if(!f)return;const e={f:sc?Object.assign({},f,{size:(f.size||1)*sc}):f,t:t+i,x,stop:x,wind:0,lunge:0,flash:0,dead:0,seed:i,fly:false,alt:120,armor:0,armorMax:0,bar:0,heads:3};try{drawFoe(cx,e,x,t)}catch(err){}};
   switch(P.art){
     case'throne':drawHollowBody(c,t,5,true);for(let i=0;i<30;i++){const y=GY-((t*40+i*37)%GY);c.fillStyle=`rgba(255,${120+i*4},60,${.6*(y/GY)})`;c.fillRect(hsh(i)*W,y,3,3)}break;
-    case'generals':{const B=['boar','hag','lich','glacier','pharaoh','leviathan','wyrm','regent'];c.fillStyle='rgba(0,0,0,.35)';c.fillRect(0,0,W,H);B.forEach((b,i)=>{c.save();c.globalAlpha=Math.min(1,Math.max(0,(pt-i*.25)/.6));foe(b,90+i*112,i,.55);c.restore()});glow(c,W/2,GY-260,200,'#9a5aff',.3);break}
+    case'generals':{const B=['boar','hag','lich','glacier','pharaoh','leviathan','wyrm','regent'];c.fillStyle='rgba(0,0,0,.35)';c.fillRect(0,0,W,H);glow(c,W/2,GY-200,380,'#9a5aff',.32);B.forEach((b,i)=>{c.save();c.globalAlpha=Math.min(1,Math.max(0,(pt-i*.25)/.6));silDraw(c,x=>{x.translate(0,-150);foe2(x,b,140+i*96,i,.55)},'#c06aff');c.restore()});break}
     case'raid':{for(let i=0;i<6;i++){const x=80+i*150,h=70+hsh(i)*50;c.fillStyle='#2a1a12';c.fillRect(x-40,GY-h,80,h);c.beginPath();c.moveTo(x-50,GY-h);c.lineTo(x,GY-h-50);c.lineTo(x+50,GY-h);c.fill();if(i%2===0){glow(c,x,GY-h-30,90,'#ff6a1a',.5+.2*Math.sin(t*8+i));for(let j=0;j<5;j++){c.fillStyle=j%2?'#ffb04a':'#ff5a1a';c.beginPath();c.moveTo(x-30+j*14,GY-h);c.quadraticCurveTo(x-24+j*14,GY-h-40-Math.sin(t*9+j)*14,x-16+j*14,GY-h);c.fill()}}}
       for(let i=0;i<3;i++){const x=W-((pt*90+i*220)%(W+200));c.save();c.translate(x,GY);drawFolk(c,0,0,{s:1.1,face:-1,t:t*1.5+i,walk:true,body:'#3a2a2a',head:'hood',hc:'#1a1a1a',weapon:'sword',eye:'#ff5a3a'});c.restore();c.strokeStyle='#5a4a3a';c.lineWidth=3;c.strokeRect(x+30,GY-90,44,50);for(let j=1;j<4;j++){c.beginPath();c.moveTo(x+30+j*11,GY-90);c.lineTo(x+30+j*11,GY-40);c.stroke()}}break}
     case'hero':storyHero(c,W*.42,GY,1.6,t,{anim:pt<1.2?null:'strike',animT:Math.max(0,pt-1.2)%1.6});for(let i=0;i<4;i++){c.fillStyle='#2a1a12';c.fillRect(600+i*90,GY-40-i*8,60,40+i*8)}glow(c,W*.42,GY-90,140,'#ffd36a',.15);break;
     case'road':storyHero(c,W*.38,GY,1.4,t,{walk:true});for(let i=0;i<14;i++){const x=((hsh(i)*W*1.2-pt*120)%(W*1.2)+W*1.2)%(W*1.2)-W*.1;c.fillStyle='rgba(0,0,0,.25)';c.beginPath();c.ellipse(x,GY+20+hsh(i+3)*40,10,3,0,0,7);c.fill()}break;
-    case'fall':{foe('boar',W*.7,1,1.4);c.save();c.translate(W*.32,GY);c.rotate(-Math.PI/2*Math.min(1,pt/1.2));drawHero(c,0,0,1.4,{face:1,anim:'hurt',animT:.1},t);c.restore();c.fillStyle=`rgba(0,0,0,${Math.min(.85,pt*.25)})`;c.fillRect(0,0,W,H);break}
+    case'fall':{silDraw(c,x=>foe2(x,'boar',W*.7,1,1.4),'#ff6a3a');c.save();c.translate(W*.32,GY);c.rotate(-Math.PI/2*Math.min(1,pt/1.2));drawHero(c,0,0,1.4,{face:1,anim:'hurt',animT:.1},t);c.restore();c.fillStyle=`rgba(0,0,0,${Math.min(.85,pt*.25)})`;c.fillRect(0,0,W,H);break}
     case'wake':{c.fillStyle=`rgba(0,0,0,${Math.max(0,1-pt*.35)})`;c.fillRect(0,0,W,H);glow(c,W/2,GY-30,140*Math.min(1,pt*.4),'#ff8a3a',.5);break}
     case'master':case'yard':case'cages':{
       /* campfire, the hero sitting, the master talking */
@@ -9096,6 +9160,9 @@ function drawStoryPanel(c,P,t,pt){const k=Math.min(1,pt/6),zoom=1+k*.06;c.save()
     case'village':for(let i=0;i<6;i++){const x=80+i*150,h=70+hsh(i)*50;c.fillStyle='#4a3424';c.fillRect(x-40,GY-h,80,h);c.fillStyle='#8a3a2a';c.beginPath();c.moveTo(x-50,GY-h);c.lineTo(x,GY-h-50);c.lineTo(x+50,GY-h);c.fill();glow(c,x,GY-h+30,30,'#ffd36a',.6);c.fillStyle='#ffd36a';c.fillRect(x-8,GY-h+20,16,16)}storyHero(c,W*.5,GY,1.3,t,{});break;
     case'rift':glow(c,W*.6,GY*.4,200,'#c9a6ff',.4);c.strokeStyle='rgba(201,166,255,.8)';c.lineWidth=4;c.beginPath();for(let i=0;i<20;i++){const y=GY*.15+i*12;c.lineTo(W*.6+Math.sin(i*2.3+t)*12,y)}c.stroke();storyHero(c,W*.3,GY,1.3,t,{});break}
   c.restore()}
+let SILCV=null;
+/* draw something as a dark shape with a glowing rim, so the generals stay a mystery */
+function silDraw(c,fn,rim){const cv=SILCV||(SILCV=document.createElement('canvas'));if(cv.width!==W){cv.width=W;cv.height=H}const x=cv.getContext('2d');x.setTransform(1,0,0,1,0,0);x.globalCompositeOperation='source-over';x.clearRect(0,0,W,H);fn(x);x.globalCompositeOperation='source-in';x.fillStyle='#07040c';x.fillRect(0,0,W,H);x.globalCompositeOperation='source-over';c.save();c.shadowColor=rim;c.shadowBlur=16;c.drawImage(cv,0,0,W,H);c.restore()}
 const NPCIMG={};function npcImg(id,sil){const k=id+(sil?':s':'');if(NPCIMG[k])return NPCIMG[k];const im=new Image();im.src=npcArt(id,sil);NPCIMG[k]=im;return im}
 
 /* ---------- The first fight: callouts that point at one button at a time ---------- */
@@ -9127,17 +9194,17 @@ function campNotices14(){if(curScreen()!=='camp')return;const d=D();
   if(d.bowFloor&&!save.seen.bowFloor){save.seen.bowFloor=1;persist();toast('Your bow reload is as fast as it can go: 2 seconds.');return}
   if(d.spellFloor&&focusOn()&&!save.seen.spellFloor){save.seen.spellFloor=1;persist();toast('Your spell recharge is as fast as it can go: 2 seconds.');return}
   const cs=save.capSeen||(save.capSeen={});const n=NPCS.find(x=>!npcHas(x.id)&&!cs[x.id]&&(x.kind==='trainer'||x.kind==='helper')&&zoneOpen(x.z));
-  if(n){cs[n.id]=1;persist();const b=FOES[n.boss];cornerNotice('cap',`<img src="${npcArt(n.id)}" alt="">`,n.n+' is held captive!',(b?b.n:'A foe')+' keeps '+n.n.split(' ')[0]+' in '+ZONES[n.z].n+'. Free them: '+n.d,'To the map',goMap)}}
+  if(n){cs[n.id]=1;persist();const b=FOES[n.boss];cornerNotice('cap',`<img src="${npcArt(n.id)}" alt="">`,n.n+' is held captive!','The '+(n.mid?'guardian':'boss')+' of '+ZONES[n.z].n+' keeps '+n.n.split(' ')[0]+' locked up. Free them: '+n.d,'To the map',goMap)}}
 function masterTip(){const r=rankSum(),cap=rankCap(),nx=NPCS.find(n=>n.kind==='trainer'&&!npcHas(n.id));
   if(!save.firstWin)return'Every fight makes you stronger. Win your first expedition and the road opens up.';
-  if(nx&&allDrills().some(id=>drillRank(id)>=cap))return`Your drills have hit rank ${cap}. ${nx.n} could take you further. ${FOES[nx.boss].n} holds them in ${ZONES[nx.z].n}.`;
+  if(nx&&allDrills().some(id=>drillRank(id)>=cap))return`Your drills have hit rank ${cap}. ${nx.n} could take you further. The boss of ${ZONES[nx.z].n} holds them.`;
   if(r<5)return'Every goal in a drill ranks it up, and every rank in any drill adds 1% to all your training. Start with the Fruit Smash.';
-  if(!yardOn())return'Ranks in every drill add up. You train '+Math.round((globalTrainMult()-1)*100)+'% faster already.';
-  return'All your ranks together give ×'+globalTrainMult().toFixed(2)+' training XP. Gems from Garnet the Gemcutter multiply a single drill.'}
+  if(!yardOn())return'Ranks in every drill add up. Your ranks already give +'+rankSum()+'% training XP.';
+  return'Your ranks add +'+rankSum()+'% to all training XP. Gems from Garnet the Gemcutter multiply a single drill on top.'}
 function showMaster(){const N=NPCR.master,freed=NPCS.filter(n=>n.kind==='trainer'&&npcHas(n.id));
   modal({title:N.n,wide:true,x:true,body:`<div class="rescue"><img src="${npcArt('master')}" alt=""><div><p class="eyebrow">${N.t}</p><p>“${masterTip()}”</p>
-    <p class="note">Rank limit: <b>${rankCap()}</b> · all training ×${globalTrainMult().toFixed(2)} · trainers home: ${freed.length} of 5</p></div></div>
-    <div class="trlist">${NPCS.filter(n=>n.kind==='trainer').map(n=>{const h=npcHas(n.id);return`<div class="tr ${h?'on':''}"><img src="${npcArt(n.id,!h)}" alt=""><div><b>${h?n.n:'Captive'}</b><small>${h?n.t+' · '+n.d:'Held by '+(zoneOpen(n.z)?FOES[n.boss].n+' in '+ZONES[n.z].n:'a general further down the road')}</small></div></div>`}).join('')}</div>`,
+    <p class="note">Rank limit: <b>${rankCap()}</b> · ranks +${rankSum()}% training XP · trainers home: ${freed.length} of 5</p></div></div>
+    <div class="trlist">${NPCS.filter(n=>n.kind==='trainer').map(n=>{const h=npcHas(n.id);return`<div class="tr ${h?'on':''}"><img src="${npcArt(n.id,!h)}" alt=""><div><b>${h?n.n:'Captive'}</b><small>${h?n.t+' · '+n.d:'Held by '+(zoneOpen(n.z)?'the boss of '+ZONES[n.z].n:'a general further down the road')}</small></div></div>`}).join('')}</div>`,
     buttons:[{label:'Hear the story again',cls:'alt',on:()=>storyScene('master',()=>goCamp())},{label:'Townsfolk',cls:'alt',on:showTownsfolk},{label:'Back to training'}]})}
 const drillCount=()=>TREE.slice(0,rowsOpen()).flat().length;
 function drillCardHtml(id,num){const dr=DRILLS[id],c0=STATS[dr.stats[0]].col,r=drillRank(id),gp=goalProgress(id),fav=!!(save.favDrills||{})[id],pr=gemsFull(id),gm=gemsOf(id);
@@ -9147,18 +9214,18 @@ function drillCardHtml(id,num){const dr=DRILLS[id],c0=STATS[dr.stats[0]].col,r=d
     ${dr.stats.map(k=>`<span class="sbar"><i style="width:${Math.round(save.stats[k].x/needStat(save.stats[k].l)*100)}%;background:${STATS[k].col}"></i></span>`).join('')}
     <span class="drank"><img src="${rankBadge(r,48)}" alt=""><span><b style="color:${rankCol(r)}">${rankName(r)}</b><small>${gp?goalText(id,gp.g)+' · '+fmt(gp.v)+'/'+fmt(gp.g.n):r>=RANK_MAX?'Highest rank':'Rank limit: free a trainer'}</small></span><span class="gems">${GEM_R.map((G,i)=>`<img src="${gemArt(i,DGEMC[id],!gm.includes(i))}" alt="">`).join('')}</span></span></button>`}
 renderTree=function(){const yu=$('#yard-up');if(yu)yu.hidden=!yardOn();const open=rowsOpen(),fresh=open>(save.seenRows||1),all=open>=TREE.length;let idx=0;const num={};TREE.slice(0,open).flat().forEach(id=>num[id]=++idx);
-  let html=`<div class="yhead"><button class="master" type="button" id="y-master"><img src="${npcArt('master')}" alt=""><span><b>Master Oren</b><small>${esc(masterTip()).slice(0,90)}${masterTip().length>90?'…':''}</small></span></button><span class="ymult"><b>×${globalTrainMult().toFixed(2)}</b><small>all training · ${rankSum()} ranks · limit ${rankCap()}</small></span></div>`;
+  let html=`<div class="yhead"><button class="master" type="button" id="y-master"><img src="${npcArt('master')}" alt=""><span><b>Master Oren</b><small>${esc(masterTip()).slice(0,90)}${masterTip().length>90?'…':''}</small></span></button><button class="ymult" type="button" id="y-mult" aria-label="Where your training XP comes from"><b>+${Math.round(trainBreak(TREE[0][0]).add)}%</b><small>training XP · ${rankSum()} ranks · limit ${rankCap()} · see why</small></button></div>`;
   const favs=TREE.slice(0,open).flat().filter(id=>(save.favDrills||{})[id]);
   if(all){if(favs.length)html+=`<p class="eyebrow">★ Favourites</p><div class="trow favs c${Math.min(3,favs.length)}">${favs.map(id=>drillCardHtml(id,num[id])).join('')}</div>`;
     html+=`<button class="ytog" type="button" id="y-tog" aria-expanded="${save.yardOpen!==false}"><span>All drills · ${idx}</span><svg viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2"/></svg></button>`}
   if(!all||save.yardOpen!==false){for(let r=0;r<open;r++){html+=`<div class="trow ${TREE[r].length===3?'c3':TREE[r].length===1?'c1':'c2'}" data-tier="${['Tier I · Basics','Tier II · Body and mind','Tier III · Dual drills','Tier IV · Trio drills','Tier V · The Grand Trial'][r]||''}">${TREE[r].map(id=>drillCardHtml(id,num[id])).join('')}</div>`}}
   const nf=nextFeature();if(open<TREE.length||nf){let body='';if(open<TREE.length){const reqs=ROWREQ[open];body+=`<p class="eyebrow">Next unlock</p><h3>${open===1?'Two new drills':open===2?'Three dual drills':open===3?'Three trio drills':'The Grand Trial: all four stats'}</h3>`+reqs.map(([k,l])=>{const v=save.stats[k].l,ok=v>=l;return`<div class="req-row ${ok?'ok':''}"><span>${STATS[k].n}</span><span class="sbar"><i style="width:${Math.min(100,Math.round(((v-1)+save.stats[k].x/needStat(v))/(l-1)*100))}%;background:${STATS[k].col}"></i></span><b>${Math.min(v,l)} / ${l}${ok?' ✓':''}</b></div>`}).join('')}else body+=`<p class="eyebrow">Every drill is open</p>`;
-    if(nf)body+=`<p class="soon">Coming up: <b>${nf.n}</b>. ${nf.how[0].toUpperCase()+nf.how.slice(1)}.</p>`;html+=`<div class="cloud down big"><span class="puff"></span><div class="ci">${body}</div></div>`}
+    if(nf)body+=`<p class="soon">Coming up: <b>${nf.n}</b>. ${nf.how[0].toUpperCase()+nf.how.slice(1)}.</p>`;html+=open<TREE.length?`<div class="cloud down big"><span class="puff"></span><div class="ci">${body}</div></div>`:`<div class="ynext">${body}</div>`}
   $('#tree').innerHTML=html;
   $$('#tree [data-drill]').forEach(b=>b.addEventListener('click',e=>{if(e.target.closest('[data-fav]'))return;audio();startTraining(b.dataset.drill)}));
   $$('#tree [data-fav]').forEach(b=>b.addEventListener('click',e=>{e.stopPropagation();const id=b.dataset.fav,F=save.favDrills||(save.favDrills={});if(F[id])delete F[id];else F[id]=1;persist();sfx('pop',1.3);renderTree()}));
   const t=$('#y-tog');if(t)t.addEventListener('click',()=>{save.yardOpen=save.yardOpen===false;persist();renderTree()});
-  $('#y-master').addEventListener('click',()=>{audio();showMaster()});
+  $('#y-master').addEventListener('click',()=>{audio();showMaster()});$('#y-mult').addEventListener('click',()=>{audio();showTrainMult()});
   if(fresh){save.seenRows=open;persist()}};
 
 /* ---------- Yard upgrades: cards, and themes you can switch between ---------- */
@@ -9166,7 +9233,7 @@ showYard=function(){const own=save.yard||(save.yard={}),yf=yardFx();
   const ups=YARDUP.map(U=>{const has=own[U.id],lockLv=save.lvl<U.lv,lockNg=(save.ng||0)<U.ng,lock=lockLv||lockNg,fx=Object.entries(U.fx).map(([k,v])=>fxText(k,v)).join(' · '),th=YTHEMES.find(T=>T.need===U.id);
     return`<div class="yup2 ${has?'own':''} ${lock?'lk':''}"><span class="yic">${svg(U.fx.mult?'brazier':'hammer')}</span><div><h3>${U.n}</h3><p class="note">${U.d}</p><p class="fx">${fx}${th?` · unlocks the <b>${th.n}</b> theme`:''}</p></div>${has?'<span class="eqd">Built</span>':lock?`<span class="note">${lockNg?'New Game+ '+U.ng:'Level '+U.lv}</span>`:`<button class="btn sm" type="button" data-yard="${U.id}" ${save.gold<U.c?'disabled':''}>${coinTxt(U.c)}</button>`}</div>`}).join('');
   const cur=ytheme().id,themes=YTHEMES.map(T=>{const on=ythemeOn(T);return`<button class="yth ${cur===T.id?'sel':''} ${on?'':'lk'}" type="button" data-yth="${T.id}" ${on?'':'disabled'} style="--a:${T.acc||'#e3b553'};--s0:${T.sky?T.sky[0]:'#2b4a52'};--s1:${T.sky?T.sky[1]:'#e8b07a'}"><span class="ysw"></span><b>${T.n}</b><small>${on?T.d:'Build the '+YARDUP.find(U=>U.id===T.need).n}</small></button>`}).join('');
-  modal({title:'Training Yard',wide:true,x:true,body:`<div class="ystats"><span><b>×${globalTrainMult().toFixed(2)}</b><small>from ${rankSum()} drill ranks</small></span><span><b>+${yf.train}%</b><small>training XP from the yard</small></span><span><b>+${yf.mult}</b><small>highest combo multiplier</small></span></div>
+  modal({title:'Training Yard',wide:true,x:true,body:`<div class="ystats"><span><b>+${rankSum()}%</b><small>training XP from ${rankSum()} drill ranks</small></span><span><b>+${yf.train}%</b><small>training XP from the yard</small></span><span><b>+${yf.mult}</b><small>highest combo multiplier</small></span></div>
     <h3 class="ysec">Themes</h3><p class="note">Every yard upgrade unlocks a theme. It changes the sky, the ground and the things you hit in every drill.</p><div class="yths">${themes}</div>
     <h3 class="ysec">Upgrades</h3><div class="yups2">${ups}</div>`,buttons:[{label:'Done'}]});
   $$('[data-yard]').forEach(b=>b.addEventListener('click',()=>{const U=YARDUP.find(x=>x.id===b.dataset.yard);if(!U||save.gold<U.c||own[U.id])return;spend(U.c);own[U.id]=1;persist();sfx('boom',.9);jingle([1,1.25,1.5,2]);toast(U.n+' built');showYard();renderCamp()}));
@@ -9203,7 +9270,7 @@ function showFame(){const f=save.fame||0,r=fameRank(),nx=FAME_R[r+1],fx=fameFx()
     <p class="note">Win fame by beating guardians and region bosses for the first time, then hidden paths, trials, the Rift and the Hollow King. Repeat victories add a little more.</p>
     <div class="famelist">${FAME_R.map(([v,n],i)=>`<span class="${i<=r?'on':''}"><b>${n}</b><small>${fmt(v)} fame · ${i}% off, +${i*2}% gold</small></span>`).join('')}</div>`,buttons:[{label:'Close'}]})}
 function showTownsfolk(){const met=NPCS.filter(n=>npcHas(n.id)).length;
-  modal({title:'Townsfolk',wide:true,x:true,body:`<p class="note">Everyone you have met, freed or found. ${met} of ${NPCS.length}. The dark ones are still out there.</p>`+NPC_KINDS.map(([k,h])=>{const L=NPCS.filter(n=>n.kind===k);return`<section class="folkg"><h3>${h} <small>${L.filter(n=>npcHas(n.id)).length} / ${L.length}</small></h3><div class="folkl">${L.map(n=>{const h2=npcHas(n.id);return`<div class="folk ${h2?'on':''}"><img src="${npcArt(n.id,!h2)}" alt=""><b>${h2?n.n:'???'}</b><small>${h2?n.t:k==='hidden'?'On a hidden path':k==='trainer'||k==='helper'?'Held by '+(FOES[n.boss]?FOES[n.boss].n:'a general'):k==='keeper'?'Opens a shop':'Visits now and then'}</small>${h2&&n.d?`<em>${n.d}</em>`:''}</div>`}).join('')}</div></section>`}).join(''),buttons:[{label:'Close'}]})}
+  modal({title:'Townsfolk',wide:true,x:true,body:`<p class="note">Everyone you have met, freed or found. ${met} of ${NPCS.length}. The dark ones are still out there.</p>`+NPC_KINDS.map(([k,h])=>{const L=NPCS.filter(n=>n.kind===k);return`<section class="folkg"><h3>${h} <small>${L.filter(n=>npcHas(n.id)).length} / ${L.length}</small></h3><div class="folkl">${L.map(n=>{const h2=npcHas(n.id);return`<div class="folk ${h2?'on':''}"><img src="${npcArt(n.id,!h2)}" alt=""><b>${h2?n.n:'???'}</b><small>${h2?n.t:k==='hidden'?'On a hidden path':k==='trainer'||k==='helper'?'Held by '+(zoneOpen(n.z)?'the '+(n.mid?'guardian':'boss')+' of '+ZONES[n.z].n:'a general'):k==='keeper'?'Opens a shop':'Visits now and then'}</small>${h2&&n.d?`<em>${n.d}</em>`:''}</div>`}).join('')}</div></section>`}).join(''),buttons:[{label:'Close'}]})}
 /* Meeting traders and shopkeepers fills in the book */
 {const rm=renderMarket;renderMarket=function(){rm();try{const m={golden:'golden',zoo:'zoo',charm:'charm',oracle:'oracle',gemcutter:'gemcutter'};if(mkStall&&m[mkStall]&&!npcHas(m[mkStall])){save.npc[m[mkStall]]=1;persist()}
   for(const n of NPCS)if(n.kind==='keeper'&&n.shop&&shopLv(n.shop)>0&&!npcHas(n.id)){save.npc[n.id]=1}}catch(e){}}}
@@ -9222,16 +9289,27 @@ openRoad=function(){const lv=save.lvl,seen=save.lvSeen||1,groups={};for(const L 
 function extHtml(z){const X=EXTS[z],cl=extCl(z),cap=NPCS.find(n=>n.kind==='hidden'&&n.ext===z),freed=cap&&npcHas(cap.id);let nodes='';
   for(let s=0;s<EXT_N;s++){const done=s<cl,can=s<=cl,bs=s===EXT_BOSS;if(s)nodes+=`<span class="trail ${s<=cl?'lit':''}"></span>`;nodes+=`<button type="button" class="node xn ${bs?'boss':''} ${done?'done':''} ${can&&!done?'open':''}" data-ez="${z}" data-es="${s}" ${can?'':'disabled'} aria-label="${X.n} ${bs?'boss':'stage '+(s+1)}">${bs?svg('crown'):s+1}</button>`}
   return`<section class="zone ext" style="--xc:${X.col}"><div class="zh"><div><p class="eyebrow" style="color:${X.col}">${svg('road')} Hidden path · harder than ${ZONES[Math.min(NZ-1,z+2)].n}</p><h2>${X.n}</h2></div>${cap?`<span class="xcap ${freed?'on':''}">${freed?`<img src="${npcArt(cap.id)}" alt="">`:`<img src="${npcArt(cap.id,true)}" alt="">`}<small>${freed?cap.n+' is home':'Someone is held here'}</small></span>`:''}</div>
-    <p class="zd">${X.d} Boss: ${FOES[X.boss].n}.</p><div class="nodes">${nodes}</div></section>`}
+    <p class="zd">${X.d}</p><div class="nodes">${nodes}</div></section>`}
 {const rmp=renderMap;renderMap=function(){rmp();const box=$('#zones');if(!box)return;
   /* captive portraits climbing out of each open region */
   $$('#zones section.zone').forEach(sec=>{const nd=sec.querySelector('.node[data-z]');if(!nd)return;const z=+nd.dataset.z;if(z>=NZ||!zoneOpen(z))return;
-    const caps=NPCS.filter(n=>(n.kind==='trainer'||n.kind==='helper')&&n.z===z&&!npcHas(n.id));if(caps.length)sec.insertAdjacentHTML('beforeend',`<div class="captives">${caps.map(n=>`<span class="capb" title="${esc(n.n)} is held by ${esc(FOES[n.boss].n)}"><img src="${npcArt(n.id)}" alt=""><i>${svg('captive')}</i><small>${n.mid?'Guardian':'Boss'}</small></span>`).join('')}</div>`);
+    const caps=NPCS.filter(n=>(n.kind==='trainer'||n.kind==='helper')&&n.z===z&&!npcHas(n.id));if(caps.length){const zh=sec.querySelector('.zh');const ch=zh&&zh.querySelector('.chips');if(ch&&!(save.zoneSeen[z]||save.cleared[z]>0))ch.innerHTML='';(ch||zh||sec).insertAdjacentHTML(ch?'beforebegin':'beforeend',`<div class="captives">${caps.map(n=>`<span class="capb" title="${esc(n.n)} is held by the ${n.mid?'guardian':'boss'} of ${esc(ZONES[z].n)}"><img src="${npcArt(n.id)}" alt=""><i>${svg('captive')}</i><small>${n.mid?'Guardian':'Boss'}</small></span>`).join('')}</div>`)}
     if(extOpen(z))sec.insertAdjacentHTML('afterend',extHtml(z))});
   $$('[data-ez]').forEach(b=>b.addEventListener('click',()=>startBattle(+b.dataset.ez,+b.dataset.es,{ext:+b.dataset.ez})))}}
 
 /* a callout never outlives its fight */
 {const sh=show;show=function(id){if(id!=='play')tutHide();return sh.apply(this,arguments)}}
+
+/* ---------- Where training XP comes from ---------- */
+let tmSel=null;
+function showTrainMult(id){const open=TREE.slice(0,rowsOpen()).flat();id=id||tmSel||open[0];tmSel=id;const B=trainBreak(id),dr=DRILLS[id],cm=maxMult(id);
+  modal({title:'Training XP',wide:true,x:true,body:`<p class="note">All your bonuses add up into one number. Training gems then multiply one drill on top, and your combo multiplies everything during a session.</p>
+    <div class="tabs tmtabs">${open.map(k=>`<button class="tab sm" type="button" data-tm="${k}" aria-selected="${k===id}">${DRILLS[k].n}</button>`).join('')}</div>
+    <div class="tmlist">${B.L.map(([n,d,v])=>`<div class="tmr ${v>0?'':'off'}"><span><b>${n}</b>${d?`<small>${d}</small>`:''}</span><em>+${Math.round(v)}%</em></div>`).join('')}
+      <div class="tmr sum"><span><b>Total bonus</b></span><em>+${Math.round(B.add)}% · ×${(1+B.add/100).toFixed(2)}</em></div>
+      <div class="tmr ${B.gm>1?'':'off'}"><span><b>${dr.n} gems</b><small>${gemsOf(id).length} of 5 sockets filled · gems multiply each other</small></span><em>×${B.gm.toFixed(2)}</em></div>
+      <div class="tmr tot"><span><b>${dr.n} XP multiplier</b><small>before your combo, which adds up to ×${cm} more in a session</small></span><em>×${B.tot.toFixed(2)}</em></div></div>`,buttons:[{label:'Close'}]});
+  $$('[data-tm]').forEach(b=>b.addEventListener('click',()=>{sfx('pop',1.2);showTrainMult(b.dataset.tm)}))}
 /* ================= Update 14 UI, part 2: inventory slots, the Pawnbroker, the Gemcutter, the Gallery and bundles ================= */
 
 /* ---------- Comparing gear ---------- */
@@ -9499,7 +9577,7 @@ QUESTS.push(
   {n:'A hard lesson',d:'Survive your first expedition. Master Oren will patch you up.',go:'map',chk:()=>(save.tut||0)>=2,r:30},
   {n:'Rank up',d:'Finish a goal in any drill to rank it up.',go:'drill:smash',chk:()=>rankSum()>=1,r:40},
   {n:'Iron and up',d:'Bring any drill to rank 10.',go:'drill:smash',chk:()=>allDrills().some(id=>drillRank(id)>=10),r:600},
-  {n:'Free Brann',d:'Defeat '+FOES[NPCR.brann.boss].n+' in '+ZONES[NPCR.brann.z].n+' to free Brann Ironarm, master of strength.',go:'map',chk:()=>npcHas('brann'),r:1500},
+  {n:'Free Brann',d:'Beat the boss of '+ZONES[NPCR.brann.z].n+' to free Brann Ironarm, master of strength.',go:'map',chk:()=>npcHas('brann'),r:1500},
   {n:'Dressed to match',d:'Wear 3 pieces of one set.',go:'pack',chk:()=>Object.values(setCounts()).some(n=>n>=3),r:900},
   {n:'Off the beaten path',d:'Win a stage on a hidden path.',go:'map',chk:()=>(save.ext||[]).some(x=>x>0),r:6000});
 
@@ -9565,7 +9643,8 @@ const N14={t:'Update #14',when:'The Story Update: a master, captive trainers, ge
     ['Bundles','bundles',['Opening a bundle is now a box that shakes, glows up through the rarities inside and bursts open.',
       'New at the Bazaar: the Set Satchel (three pieces of one set), the Weapon Crate (better odds for hammers and crossbows) and the Armour Trunk.',
       'The Golden Merchant brings a different three hoards each visit, from the Gilded Armoury to the Midas Wardrobe, a complete set.']]],
-  s:[['Combat',['You now walk towards the foes. Foes walk in to take their places when they appear.','Rarities open with your level: uncommon at 1, rare at 2, epic at 4, legendary at 7 and Mythic at 40. They show on the Level Road.','Better chests open with your level too: iron at 3, silver at 6, gold at 10 and royal at 15.','Fame: beat guardians and bosses to earn it. Fame ranks give cheaper merchants, more gold and more XP.']],
+  s:[['Hotfix 14.1',['The story fades smoothly into the game, the story is told more simply, and the generals stay hidden as dark shapes.','Unlocks are spread across more levels, and only one new-feature spotlight appears each time you come back to camp.','The Level Road lists every unlock for each level, sorted by kind, and the cloud now fully hides everything after the next level.','Training bonuses now add up, and you can see where every bit comes from by tapping the XP bonus in the Training Yard.','Fruit Smash fires fruit from bushes instead of cannons. Combo goals now complete as soon as your combo reaches the number.','The Talisman Museum is a slim bar in camp. Captives on the map sit beside the region name, and the map no longer names each region\'s foes and bosses.','A smoother walk with fewer dust puffs, and the Block lesson explains Parry.']],
+    ['Combat',['You now walk towards the foes. Foes walk in to take their places when they appear.','Rarities open with your level: uncommon at 1, rare at 2, epic at 4, legendary at 7 and Mythic at 40. They show on the Level Road.','Better chests open with your level too: iron at 3, silver at 6, gold at 10 and royal at 15.','Fame: beat guardians and bosses to earn it. Fame ranks give cheaper merchants, more gold and more XP.']],
     ['Camp',['The Talisman Museum is a building in camp. New and ranked-up talismans no longer pop up: the Museum shows a badge and highlights them inside. Switch it to a button in Settings.','The Training Yard has a favourites row once every drill is open, and the list folds away with an arrow.','A red dot on your level bar after a level-up, with the new unlocks highlighted on the Level Road.','The Level Road and the expedition map only show the next unlock. The clouds over the rest are much bigger.']],
     ['Everything else',['A new sound engine: layered sounds with reverb, training sounds that climb with your combo, and heavy special attacks. Volume control in Settings.','Six fonts to choose from in Settings.','Achievements for loot now wait until the loot is revealed.','16 new achievements and 6 new quests.','Patch notes now open with an overview, then the details with pictures.']]]};
 PATCH.unshift(N14);
@@ -9578,6 +9657,40 @@ function notes14(p){return`<div class="nhero"><p class="eyebrow">${p.t}</p><h3>$
   <h4>Overview</h4><div class="novs">${p.ov.map(([k,ic,n,d])=>`<button class="nov" type="button" data-njump="${k}">${SHOTS14[k]?`<img src="${SHOTS14[k]}" alt="" loading="lazy">`:`<span class="nic">${svg(ic)}</span>`}<b>${n}</b><small>${d}</small></button>`).join('')}</div>
   <h4>The big features</h4>${p.feat.map(([n,k,L])=>`<article class="nfeat" id="nf-${k}">${shot(k)}<div><h5>${n}</h5>${L.map(x=>`<p>${esc(x)}</p>`).join('')}</div></article>`).join('')}
   ${p.s.map(([h,l])=>`<h4>${h}</h4><ul>${l.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`).join('')}`}
+
+/* ================= Update 14 hotfix ================= */
+/* Only one new-feature spotlight per return to camp, so new heroes are not flooded */
+let SPOT_N=0;
+{const su=showUnlocks;showUnlocks=function(){if(save&&curScreen()==='camp'&&SPOT_N>=1){const f=FEATURES.find(x=>!save.seen[x.id]&&x.on());if(f)return}su();const sp=$('#spot');if(sp&&!sp.hidden)SPOT_N++}}
+{const gc=goCamp;goCamp=function(){SPOT_N=0;return gc.apply(this,arguments)}}
+{const fe=id=>FEATURES.find(F=>F.id===id);
+  const f1=fe('folk14');if(f1)f1.on=()=>NPCS.some(n=>(n.kind==='trainer'||n.kind==='helper'||n.kind==='hidden')&&npcHas(n.id));
+  const f2=fe('sets14');if(f2)f2.on=()=>save.lvl>=3&&Object.keys(save.setSeen||{}).length>=1;
+  const f3=fe('vendor14');if(f3)f3.on=()=>lvOn('vendor_q');
+  const f4=fe('fame14');if(f4)f4.on=()=>save.lvl>=4&&(save.fame||0)>=FAME_R[1][0];
+  const f5=fe('ranks14');if(f5)f5.on=()=>save.lvl>=2&&rankSum()>0}
+LVROAD.push({lv:RAR_LV[5],id:'r_myth',ic:'gem',n:'Mythic items',d:'Mythic gear (pink) can now drop, the strongest you can find before New Game+.',rar:5});
+LVROAD.sort((a,b)=>a.lv-b.lv);for(const L of LVROAD)LVR[L.id]=L;
+{const v=LVR.vendor_q;if(v){v.n='Pawnbroker quick sell';v.d='Invest in Quill the Pawnbroker to sell straight from your Inventory, after battles and after bundles.'}}
+{const bt=boot;boot=function(data){bt(data);keepOldUnlocks(save);persist()}}
+{const sw=switchSlot;switchSlot=function(i){sw(i);keepOldUnlocks(save);persist()}}
+
+/* ---------- The Level Road: every level is a short list, and the cloud hides everything after the next one ---------- */
+const RSHOPS=['market','brewery','bazaar','menagerie','enchanter','museum','workshop','golden','vendor_q','forge','mythic'];
+function roadKind(L){if(L.rar!=null||/^r_/.test(L.id))return['New rarity',RAR[L.rar||0]?RAR[L.rar].c:'#b48cff'];if(/^c_/.test(L.id))return['New chest','#e0a050'];if(L.perk)return['Level perk','#86cf7c'];if(/^slot/.test(L.id))return['Skill slot','#5ba8e8'];
+  if(['frost','storm','holy'].includes(L.id))return['New magic','#7adfff'];if(RSHOPS.includes(L.id))return['Shop','#e3b553'];return['New feature','#c9a6ff']}
+function roadItem(L){const[k,c]=roadKind(L);return`<li style="--kc:${c}"><span class="ric">${svg(L.ic,c)}</span><span><em>${k}</em><b>${L.n}</b><small>${L.d}</small></span></li>`}
+openRoad=function(){const lv=save.lvl,seen=save.lvSeen||1,groups={};for(const L of LVROAD)(groups[L.lv]=groups[L.lv]||[]).push(L);const lvls=Object.keys(groups).map(Number).sort((a,b)=>a-b);
+  const past=lvls.filter(l=>l<=lv),ahead=lvls.filter(l=>l>lv),nx=ahead[0];
+  let h=`<div class="road2">`;
+  const old=past.filter(l=>l<=seen&&l<lv),fresh=past.filter(l=>l>seen||l===lv);
+  if(old.length)h+=`<details class="rold"><summary>${old.length} earlier level${old.length>1?'s':''} · ${old.reduce((a,l)=>a+groups[l].length,0)} unlocks</summary>${old.map(l=>`<div class="rlvl done"><div class="rlh"><span class="rl">${l}</span><b>Level ${l}</b></div><div class="rchips">${groups[l].map(L=>`<span style="--kc:${roadKind(L)[1]}">${svg(L.ic,roadKind(L)[1])}${L.n}</span>`).join('')}</div></div>`).join('')}</details>`;
+  for(const l of fresh)h+=`<div class="rlvl done ${l>seen?'fresh':''}"><div class="rlh"><span class="rl">${l}</span><b>Level ${l}</b><small>${groups[l].length} unlock${groups[l].length>1?'s':''}</small>${l>seen?'<span class="rnew">New</span>':''}</div><ul class="rlist">${groups[l].map(roadItem).join('')}</ul></div>`;
+  h+=`<div class="rlvl here"><div class="rlh"><span class="rl">${lv}</span><b>You are level ${lv}</b></div><span class="xpbig"><i style="width:${lv>=lvlCap()?100:Math.round(save.xp/needHero(lv)*100)}%"></i><em>${lv>=lvlCap()?'Level cap reached':fmt(save.xp)+' / '+fmt(needHero(lv))+' XP'}</em></span><small class="note">Hero XP comes from expeditions. Harder regions and stages give more.</small></div>`;
+  if(nx!=null)h+=`<div class="rlvl next"><div class="rlh"><span class="rl">${nx}</span><b>Next: level ${nx}</b><small>${groups[nx].length} unlock${groups[nx].length>1?'s':''}</small></div><ul class="rlist">${groups[nx].map(roadItem).join('')}</ul></div>`;
+  if(ahead.length>1)h+=`<div class="rcloud2">${[[0,20,260],[22,0,300],[48,25,280],[72,5,300],[90,30,240],[10,60,280],[40,65,320],[75,60,280]].map(([x,y,r],i)=>`<i style="left:${x-10}%;top:${y-15}%;width:${r}px;height:${r*.7}px;animation-delay:${-i*1.3}s"></i>`).join('')}<p>The rest of the road is lost in cloud.<small>Reach level ${nx} to see what comes after.</small></p></div>`;
+  h+=`</div>`;modal({title:'Level road',body:h,wide:true,buttons:[{label:'Close'}]});save.lvSeen=lv;persist();renderCamp();
+  setTimeout(()=>{const e=$('#m-body .rlvl.fresh')||$('#m-body .rlvl.here');if(e)e.scrollIntoView({block:'center'})},40)};
 /* ================= Update 14: a new sound engine =================
    Every sound is a few layers (tones and filtered noise) through one bus with a compressor and a little reverb.
    In training, hits climb in pitch with the combo and every 10 combo plays a rising chord. */
