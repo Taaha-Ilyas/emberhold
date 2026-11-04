@@ -1570,7 +1570,7 @@ const STATS={
   foc:{n:'Focus',s:'Foc',raises:'Flame damage, mana and recharge',col:'#5ba8e8'}
 };
 const DRILLS={
-  smash:{n:'Fruit Smash',g:'str',stats:['str'],icon:'apple',spec:'perfect strikes',ch:['Teacups','Hard shells','Double throws']},
+  smash:{n:'Fruit Smash',g:'str',stats:['str'],icon:'apple',spec:'perfect strikes',ch:['Bombs','Hard shells','Double throws']},
   longshot:{n:'Longshot',g:'pre',stats:['pre'],icon:'target',spec:'bullseyes',ch:['Moving targets','Crows','Small targets']},
   rockfall:{n:'Rockfall',g:'agi',stats:['agi'],icon:'feather',spec:'close calls',ch:['Boulders','Meteors','Shards']},
   wisp:{n:'Wisp Catch',g:'foc',stats:['foc'],icon:'flame',spec:'swift catches',ch:['Drifting wisps','More hexes','Quick fades']},
@@ -2410,7 +2410,7 @@ Object.assign(ICON,{
 const GOAL_BASE=50,GOAL_NGX=25,GOAL_PCT=5;
 const goalCount=()=>rankCap();
 const DGOALS={
-  smash:{k:['combo','hit','spec','safe','gold','session','total'],combo:'Reach a {n} combo in the orchard',hit:'Smash {n} fruit',spec:'Land {n} perfect strikes',safe:'Let {n} teacups reach you',gold:'Smash {n} golden fruit',session:'Earn {n} XP in one orchard session'},
+  smash:{k:['combo','hit','spec','safe','gold','session','total'],combo:'Reach a {n} combo in the orchard',hit:'Smash {n} fruit',spec:'Land {n} perfect strikes',safe:'Let {n} bombs fly past',gold:'Smash {n} golden fruit',session:'Earn {n} XP in one orchard session'},
   longshot:{k:['combo','hit','spec','gold','session','total'],combo:'Hit {n} targets in a row',hit:'Hit {n} targets',spec:'Score {n} bullseyes',gold:'Hit {n} golden targets',session:'Earn {n} XP in one round at the butts'},
   rockfall:{k:['combo','hit','spec','session','total'],combo:'Dodge for a {n} combo',hit:'Collect {n} coins and close calls',spec:'Make {n} close calls',session:'Earn {n} XP in one rockfall'},
   wisp:{k:['combo','hit','spec','safe','gold','session','total'],combo:'Catch wisps for a {n} combo',hit:'Catch {n} wisps',spec:'Make {n} swift catches',safe:'Leave {n} hexes alone',gold:'Catch {n} golden wisps',session:'Earn {n} XP in one night of wisps'},
@@ -3929,7 +3929,7 @@ function talSum(){const t={cdr:0,xp:0,mana:0,pet:0,maxMult:0,execute:0,melee:0,h
 /* ================= Save ================= */
 let save=null;
 function blankCnt(){return{parries:0,maxGold:0,epics:0,arrowCrits:0,breaks:0,bought:0,casts:0,frostKills:0,kills:{},bundles:0,hatched:0,fed:0,elites:0,smithBuys:0,spent:0,drunk:0,imbues:0,reforges:0,chests:0,mythics:0}}
-function fresh(){const s={v:12,npc:{},fame:0,fameLog:{},ext:[0,0,0,0,0,0,0,0],gems14:{},ytheme:'classic',favDrills:{},yardOpen:true,setSeen:{},gemc:null,gcNext:null,story:{},tut:0,font:'classic',talNew:{},talView:'section',invMode:'grid',sellSel:{},crystals:0,rift:{on:false,cl:[0,0,0,0],keys:[0,0,0,0],fin:0},oracle:null,oNext:null,siege:{sel:'cannon',lv:{cannon:1}},starlight:0,bag:0,ach:{},achN:0,wev:[],wevNext:null,zoo:null,zNext:null,charm:null,cNext:null,petBoss:null,pbNext:null,trials:{},talOver:{},invView:{size:'m',compact:false},ngTheme:true,dungeon:null,dNext:null,skills:{},slots:[null,null,null,null,null],lastCon:null,buffs:[],buffCd:{},legacy:{},yard:{},attune:0,brews:{},brewSel:'power',sacri:0,golden:null,gNext:3,sellMax:1,farmLv:1,dex:{},freeXp:0,cannonUp:{},shops:{armorer:1,vendor:1},smith:null,missions:0,speed:1,invSort:'new',started:false,name:'Luffy',gold:40,lvl:1,xp:0,stats:{str:{l:1,x:0},pre:{l:1,x:0},agi:{l:1,x:0},foc:{l:1,x:0}},inv:[],eq:{blade:null,bow:null,focus:null,armor:null},nid:1,potions:0,belt:6,cleared:Array(NZ).fill(0),best:{},goals:{},muted:false,won:false,seen:{},fresh:{},firstWin:false,house:{step:0,bank:0,ng2:0},potionGift:false,notesSeen:PATCH_N,
+function fresh(){const s={v:12,q14:1,lv14b:1,npc:{},fame:0,fameLog:{},ext:[0,0,0,0,0,0,0,0],gems14:{},ytheme:'classic',favDrills:{},yardOpen:true,setSeen:{},gemc:null,gcNext:null,story:{},tut:0,font:'classic',talNew:{},talView:'section',invMode:'grid',sellSel:{},crystals:0,rift:{on:false,cl:[0,0,0,0],keys:[0,0,0,0],fin:0},oracle:null,oNext:null,siege:{sel:'cannon',lv:{cannon:1}},starlight:0,bag:0,ach:{},achN:0,wev:[],wevNext:null,zoo:null,zNext:null,charm:null,cNext:null,petBoss:null,pbNext:null,trials:{},talOver:{},invView:{size:'m',compact:false},ngTheme:true,dungeon:null,dNext:null,skills:{},slots:[null,null,null,null,null],lastCon:null,buffs:[],buffCd:{},legacy:{},yard:{},attune:0,brews:{},brewSel:'power',sacri:0,golden:null,gNext:3,sellMax:1,farmLv:1,dex:{},freeXp:0,cannonUp:{},shops:{armorer:1,vendor:1},smith:null,missions:0,speed:1,invSort:'new',started:false,name:'Luffy',gold:40,lvl:1,xp:0,stats:{str:{l:1,x:0},pre:{l:1,x:0},agi:{l:1,x:0},foc:{l:1,x:0}},inv:[],eq:{blade:null,bow:null,focus:null,armor:null},nid:1,potions:0,belt:6,cleared:Array(NZ).fill(0),best:{},goals:{},muted:false,won:false,seen:{},fresh:{},firstWin:false,house:{step:0,bank:0,ng2:0},potionGift:false,notesSeen:PATCH_N,
   cnt:blankCnt(),tal:{},talSeen:{},gems:Array(NZ).fill(0),altar:Array(NZ).fill(0),final:false,kingKills:0,ng:0,quest:0,qClaimed:0,element:'fire',theme:'auto',zoneSeen:{},pets:[],petEq:[],pnid:1};
   for(const sl of ['blade','bow','focus','armor']){const it=mkStarter(s,sl);s.inv.push(it);s.eq[sl]=it.id}return s}
 function fromV1(o){const s={v:2,started:!!o.started,name:o.name||'Wren',gold:o.gold||0,lvl:o.lvl||1,xp:o.xp||0,potions:o.potions??2,cleared:o.cleared||[0,0,0],muted:!!o.muted,won:false,stats:o.stats||fresh().stats,inv:[],eq:{blade:null,bow:null,focus:null,armor:null,ring:null},nid:1,best:{}};
@@ -6112,7 +6112,7 @@ function goalProgress(id){const G=goalState(id);if(G.n>=rankCap())return null;co
 /* Smaller, looping goals that grow each time round */
 Object.assign(GSCALE,{combo:j=>10+3*j,hit:j=>18*Math.pow(j+1,1.35),spec:j=>5*Math.pow(j+1,1.3),gold:j=>2*Math.pow(j+1,1.3),safe:j=>4*Math.pow(j+1,1.3),session:j=>50*Math.pow(j+1,1.45),total:j=>220*Math.pow(j+1,1.6)});
 
-/* ---------- The new Fruit Smash: smash the fruit, leave the master's teacups alone ---------- */
+/* ---------- The new Fruit Smash: smash the fruit, never slash the bombs ---------- */
 GAMES.str=T=>{
   const C={x:480,y:388},P={t:0,anim:null,animT:0,face:1,up:false,catchT:0},Fr=FRUITS[T.tier];let gs=[],halves=[],splats=[],drops=[],spawn=1.2,stun=0,hurt=0,launch={L:0,R:0,U:0};
   const RING=100,PW=24;
@@ -6124,20 +6124,20 @@ GAMES.str=T=>{
   function strike(k){if(!T.live()||stun>0)return;P.anim='strike';P.animT=0;P.up=k==='U';if(k!=='U')P.face=k==='L'?-1:1;sfx('swing');
     let best=null,bd=1e9;for(const g of gs){if(g.k!==k)continue;const d=Math.hypot(g.x-C.x,g.y-C.y);if(d<170&&d>38&&d<bd){bd=d;best=g}}
     if(!best){stun=.38;T.miss('Whiff',C.x,C.y-150);sfx('miss');return}
-    if(best.type==='cup'){gs.splice(gs.indexOf(best),1);stun=.6;hurt=.3;T.miss('You broke the master’s teacup!',best.x,best.y-30);for(let i=0;i<10;i++)drops.push({x:best.x,y:best.y,vx:(R()-.5)*360,vy:-R()*300,t:0,col:i%2?'#f4f0e6':'#5ba8e8',shard:1});sfx('bad');shakeIt(8);return}
+    if(best.type==='cup'){gs.splice(gs.indexOf(best),1);stun=.7;hurt=.4;T.miss('Boom! Never slash a bomb!',best.x,best.y-30);for(let i=0;i<16;i++)drops.push({x:best.x,y:best.y,vx:(R()-.5)*520,vy:-R()*420,t:0,col:i%3?'#ff8a2a':'#2a2a2a',shard:1});burst(best.x,best.y,'#ffb04a',26,380);burst(best.x,best.y,'#3a3a3a',14,240);sfx('boom',1);shakeIt(14);return}
     const perf=Math.abs(bd-RING)<PW;
     if(best.gold&&!perf){gs.splice(gs.indexOf(best),1);floatText(best.x,best.y-30,best.gold?'Too '+(bd>RING?'early':'late')+' for the golden apple':'Off the ring','#e3b553',22);burst(best.x,best.y,'#ffd36a',10,200);sfx('miss',1.4);return}
     if(best.hp>1){best.hp--;best.cracked=true;const dx=best.x-C.x,dy=best.y-C.y,dd=Math.hypot(dx,dy);best.x=C.x+dx/dd*150;best.y=C.y+dy/dd*150;T.hit();T.add(1,best.x,best.y-10,'Crack');burst(best.x,best.y,'#c3ccd2',10);sfx('block');return}
     gs.splice(gs.indexOf(best),1);smashFx(best);splats.push({x:best.x+(R()-.5)*40,col:best.gold?'#ffd36a':Fr.juice,t:0,r:14+R()*12});
     T.hit(best.gold?2:1);if(perf)T.special();T.add((best.gold?4:1)+(perf?1:0)+(best.type==='shell'?1:0),best.x,best.y-10,best.gold?'Golden!':perf?'Perfect':null);sfx(perf||best.gold?'perfect':'hit',1+Math.min(T.combo,30)*.012);shakeIt(perf?5:3)}
-  return{dbg:()=>({gs,P,C}),hint:'Smash the fruit as it crosses the gold ring. Let the master’s teacups come to you.',info:Fr.n,events:['frenzy','dark','golden'],
+  return{dbg:()=>({gs,P,C}),hint:'Smash the fruit as it crosses the gold ring. Never slash a bomb: let it fly past.',info:Fr.n,events:['frenzy','dark','golden'],
     controls:[{label:'◀',sub:'Left',on:()=>strike('L'),key:['ArrowLeft','a'],kb:'←'},{label:'▲',sub:'High',on:()=>strike('U'),key:['ArrowUp','w'],kb:'↑'},{label:'▶',sub:'Right',on:()=>strike('R'),key:['ArrowRight','d'],kb:'→'}],
     light:()=>({x:C.x,y:C.y,r:300}),
     down(x,y){if(y<C.y-90&&Math.abs(x-C.x)<200)strike('U');else strike(x<C.x?'L':'R')},
     update(dt){P.t+=dt;stun-=dt;hurt-=dt;P.catchT=Math.max(0,P.catchT-dt);for(const k in launch)launch[k]=Math.max(0,launch[k]-dt);if(P.anim){P.animT+=dt;if(P.animT>.26)P.anim=null}
       if(T.live()){spawn-=dt;if(spawn<=0){add();if(T.ch(2)&&R()<.3)add();spawn=(1.25/T.spd())*(.8+R()*.4)}}
       for(let i=gs.length;i--;){const g=gs[i],dx=C.x-g.x,dy=C.y-g.y,d=Math.hypot(dx,dy);g.x+=dx/d*g.sp*dt;g.y+=dy/d*g.sp*dt;g.rot+=dt*(g.spin||5);
-        if(d<36){gs.splice(i,1);if(g.type==='cup'){P.catchT=.5;if(T.live()){T.hit(1,'s');T.add(1,C.x,C.y-150,'Caught the tea')}sfx('chime',1.3)}
+        if(d<36){gs.splice(i,1);if(g.type==='cup'){P.catchT=.5;if(T.live()){T.hit(1,'s');T.add(1,C.x,C.y-150,'Bomb dodged')}burst(C.x+(g.k==='L'?-30:g.k==='R'?30:0),GY-40,'#9a9a9a',8,120);sfx('zap',.6)}
           else if(g.gold){floatText(C.x,C.y-150,'The golden apple got away','#e3b553',22);sfx('miss',1.2)}
           else{T.miss('Bonk',C.x,C.y-150);hurt=.25;burst(g.x,g.y,Fr.juice,10);sfx('hurt');shakeIt(6)}}}
       for(let i=halves.length;i--;){const h=halves[i];h.t+=dt;h.vy+=900*dt;h.x+=h.vx*dt;h.y+=h.vy*dt;h.rot+=h.vr*dt;if(h.y>GY+30||h.t>1.6)halves.splice(i,1)}
@@ -6162,12 +6162,12 @@ GAMES.str=T=>{
       c.fillStyle='rgba(227,181,83,.12)';c.beginPath();c.arc(C.x,C.y,RING+PW,0,7);c.arc(C.x,C.y,RING-PW,0,7,true);c.fill();
       c.strokeStyle=`rgba(227,181,83,${.55+.2*Math.sin(P.t*4)})`;c.lineWidth=2.5;c.setLineDash([8,7]);c.lineDashOffset=-P.t*20;c.beginPath();c.arc(C.x,C.y,RING,0,7);c.stroke();c.setLineDash([]);
       drawHero(c,C.x,GY,1.3,{anim:P.catchT>0?'guard':P.anim,animT:P.catchT>0?.2:P.animT,face:P.face,up:P.up,flash:hurt>0},P.t);
-      if(P.catchT>0){c.save();c.translate(C.x+26,GY-118);drawTeacup(c,P.t,1,true);c.restore()}
+      
       if(stun>0)stars(c,C.x,C.y-130,P.t);
       for(const h of halves){c.save();c.translate(h.x,h.y);c.rotate(h.rot);c.beginPath();c.arc(0,0,20,h.s<0?Math.PI*.5:-Math.PI*.5,h.s<0?Math.PI*1.5:Math.PI*.5);c.closePath();c.fillStyle=h.col;c.fill();c.fillStyle=h.ju;c.beginPath();c.ellipse(h.s<0?-1:1,0,4,17,0,0,7);c.fill();if(h.gold)glow(c,0,0,26,'#ffe08a',.4);c.restore()}
       for(const p of drops){c.fillStyle=p.col;if(p.shard){c.save();c.translate(p.x,p.y);c.rotate(p.t*12);c.fillRect(-3,-2,6,4);c.restore()}else{c.beginPath();c.arc(p.x,p.y,2.4,0,7);c.fill()}}
       for(const g of gs){c.save();c.translate(g.x,g.y);
-        if(g.type==='cup'){drawTeacup(c,P.t,1);c.restore();continue}
+        if(g.type==='cup'){drawBomb(c,P.t,1);c.restore();continue}
         const tr=g.k==='U'?0:Math.max(0,1-Math.abs(Math.hypot(g.x-C.x,g.y-C.y)-RING)/80);if(g.gold){glow(c,0,0,34,'#ffe08a',.6+.3*Math.sin(P.t*14));c.strokeStyle='rgba(255,236,150,.8)';c.lineWidth=2;c.beginPath();c.arc(0,0,20+tr*10,0,7);c.stroke()}
         drawFruit(c,Fr,g.gold?16:22,g.gold,g.rot);if(g.type==='shell'){c.rotate(g.rot*.15);c.strokeStyle='#5d656b';c.lineWidth=4;c.beginPath();c.arc(0,0,24,0,7);c.stroke();c.fillStyle='#5d656b';for(let i=0;i<4;i++){c.save();c.rotate(i*Math.PI/2);c.fillRect(-3,-28,6,8);c.restore()}if(g.cracked){c.strokeStyle='#1b1512';c.lineWidth=2;c.beginPath();c.moveTo(-10,-14);c.lineTo(2,-2);c.lineTo(-4,12);c.stroke()}}
         c.restore()}}
@@ -6185,6 +6185,12 @@ function drawTeacup(c,t,s,held){c.save();c.scale(s,s);if(!held){c.globalAlpha=.4
     if(gp){bar(c,108,80,196,6,gp.v/gp.g.n,rankCol(r+1));{const gt='Next: '+goalText(id,gp.g);let fs=12;c.font=`600 ${fs}px ${BODY}`;while(fs>9&&c.measureText(gt).width>236){fs--;c.font=`600 ${fs}px ${BODY}`}txt(c,gt,108,100,`600 ${fs}px ${BODY}`,'#f1e6c9')}}else txt(c,r>=RANK_MAX?'Highest rank':'Rank limit '+rankCap()+': free a trainer to go higher',108,96,`700 12px ${BODY}`,'#e3b553');
     txt(c,'Ranks: +'+rankSum()+'% all training',W-24,30,`800 14px ${BODY}`,'#86cf7c','right');c.restore()};return s}}
 const RANKIMG={};function rankImg(r){if(RANKIMG[r])return RANKIMG[r];const im=new Image();im.src=rankBadge(r,64);RANKIMG[r]=im;return im}
+
+function drawBomb(c,t,s){c.save();c.scale(s,s);glow(c,0,0,34,'#ff5a3a',.18+.1*Math.sin(t*12));
+  c.fillStyle='#1e1e24';c.beginPath();c.arc(0,2,16,0,7);c.fill();c.fillStyle='rgba(255,255,255,.22)';c.beginPath();c.arc(-5,-4,5,0,7);c.fill();
+  c.fillStyle='#3a3a44';c.fillRect(-5,-17,10,6);c.strokeStyle='#c8a46a';c.lineWidth=2.5;c.beginPath();c.moveTo(0,-17);c.quadraticCurveTo(6,-26,12,-24);c.stroke();
+  const f=.6+.4*Math.sin(t*30);glow(c,12,-24,10*f+4,'#ffd36a',.9);c.fillStyle='#fff4c8';c.beginPath();c.arc(12,-24,2.4,0,7);c.fill();
+  c.strokeStyle='#e4566a';c.lineWidth=2;c.beginPath();c.moveTo(-6,6);c.lineTo(6,-2);c.moveTo(-6,-2);c.lineTo(6,6);c.stroke();c.restore()}
 /* ================= Update 13 art and sound ================= */
 
 /* ---------- Rune Circle: every rune rings its own xylophone bar ---------- */
@@ -8529,7 +8535,7 @@ function townHtml(){const L=townStalls(),own=L.filter(S=>stallOn(S.id)&&shopLv(S
 
 /* ================= Update 10: help and controls ================= */
 const DTIPS={
-  smash:['Fruit is fired from the launchers. Strike the lane it is in (left, high or right) as it crosses the gold ring.','Teacups: leave them alone and let them reach you. That counts for your goal. Hitting one breaks your combo.','Golden apples are small and fast and need a hit on the perfect ring. Missing one costs nothing.','Hard shells take a stronger hit, and later fruit comes two at a time.'],
+  smash:['Fruit is fired from the launchers. Strike the lane it is in (left, high or right) as it crosses the gold ring.','Bombs: never slash them. Let them fly past you, which counts for your goal. Slashing one blows up in your face and breaks your combo.','Golden apples are small and fast and need a hit on the perfect ring. Missing one costs nothing.','Hard shells take a stronger hit, and later fruit comes two at a time.'],
   longshot:['Drag back anywhere on the field and let go to shoot. The further you pull, the stronger the shot.','Wind and gravity bend your arrows: aim a little above far targets.','Bullseyes are the centre ring.'],
   rockfall:['Run left and right. Catch coins, dodge rocks.','Let a rock land close to you without touching you for a Close call bonus.','Boulders, meteors and shards arrive as your combo grows.'],
   wisp:['Tap or click wisps before they fade. Quick taps score Swift bonuses.','Red hexes break your combo if you touch them.'],
@@ -9531,7 +9537,7 @@ function applyFont(){const F=FONTS.find(f=>f.id===(save&&save.font))||FONTS[0];l
     <div class="set-row"><div><b>Talisman Museum</b><p class="note">Show it as a building in camp, or as a small button.</p></div><span class="seg"><button class="btn sm ${save.talView!=='button'?'':'alt'}" type="button" data-tv="section">Building</button><button class="btn sm ${save.talView==='button'?'':'alt'}" type="button" data-tv="button">Button</button></span></div>
     <div class="set-row"><div><b>Inventory</b><p class="note">Icon slots with tooltips, or the old large cards with every stat shown.</p></div><span class="seg"><button class="btn sm ${save.invMode!=='cards'?'':'alt'}" type="button" data-im="grid">Slots</button><button class="btn sm ${save.invMode==='cards'?'':'alt'}" type="button" data-im="cards">Cards</button></span></div>`);
   const v=$('#s-vol');v.addEventListener('input',()=>{save.vol=+v.value;persist()});v.addEventListener('change',()=>{audio();sfx('perfect',1)});
-  $$('[data-font]').forEach(b=>b.addEventListener('click',()=>{save.font=b.dataset.font;persist();applyFont();sfx('tier',1.2);showSettings()}));
+  $$('#m-body .fontb[data-font]').forEach(b=>b.addEventListener('click',()=>{save.font=b.dataset.font;persist();applyFont();sfx('tier',1.2);showSettings()}));
   $$('[data-tv]').forEach(b=>b.addEventListener('click',()=>{save.talView=b.dataset.tv;persist();sfx('pop',1.2);try{renderCamp()}catch(e){}showSettings()}));
   $$('[data-im]').forEach(b=>b.addEventListener('click',()=>{save.invMode=b.dataset.im;persist();sfx('pop',1.2);showSettings()}))}}
 /* ---------- Shopkeepers are met when their shop opens ---------- */
@@ -9591,7 +9597,7 @@ const N14={t:'Update #14',when:'The Story Update: a master, captive trainers, ge
     ['ranks','rank','Drill ranks','Drill talismans are gone. Each drill now has ranks from Copper to Celestial, and every rank speeds up all training.'],
     ['gems','gemslot','Training gems','Garnet the Gemcutter sells gems for five sockets in every drill. Fill them all for a pristine drill.'],
     ['themes','brazier','Yard themes','Yard upgrades unlock themes that reskin every drill: lasers, orbs, petals, snow and stars.'],
-    ['fruit','apple','A new Fruit Smash','Fruit flies from launchers in the orchard. Smash it, and let the teacups through.'],
+    ['fruit','apple','A new Fruit Smash','Fruit flies out of the orchard bushes. Smash it, and never slash a bomb.'],
     ['skills','skills','Skills you arm','Pick a skill, then strike, shoot or cast to let it loose. Skills now need a stat level and scale with it.'],
     ['sets','setbox','Gear sets','Every item is part of a set, with bonuses at 3 pieces and a full set. Rarer sets have special powers.'],
     ['wolf','wolf','Armour you can see','Wolf hoods, dragon helms, antlers, crowns and more: 21 armour looks with matching weapons.'],
@@ -9619,8 +9625,8 @@ const N14={t:'Update #14',when:'The Story Update: a master, captive trainers, ge
       'Fill all five and the drill’s button turns pristine.']],
     ['Yard themes','themes',['Each yard upgrade unlocks a theme: Moonlit Dojo, Neon Arena, Ember Forge, Winter Festival, Arcane Sanctum and Starfall Summit. A theme changes the sky, the ground and what you hit in every drill, so fruit can become neon orbs and arrows become laser bolts.',
       'The Yard Upgrades window has been redone with cards and a theme picker.']],
-    ['Fruit Smash','fruit',['Fruit Smash has new art and a new rule. Fruit is fired from launchers in an orchard and bursts into halves and juice when you hit it.',
-      'Teacups fly in too. Leave them alone and let them reach you: catching tea counts. Hitting one breaks your combo.',
+    ['Fruit Smash','fruit',['Fruit Smash has new art and a new rule. Fruit flies out of bushes in an orchard and bursts into halves and juice when you hit it.',
+      'Bombs fly in too. Never slash them: let them fly past, which counts for your goal. Slashing one blows up and breaks your combo.',
       'Golden apples are faster and smaller and need a hit on the perfect ring. In every drill, golden targets are now harder, but missing one no longer costs you your combo.']],
     ['Skills, armed','skills',['Tap a skill to arm it. Your hero glows and the skill waits for the attack that fires it: Rain of Arrows waits for your next shot, a strike skill for your next strike.',
       'Skills now need a level in their stat for each rank and scale with that stat, so a strong hero hits harder with strength skills.',
@@ -9643,7 +9649,8 @@ const N14={t:'Update #14',when:'The Story Update: a master, captive trainers, ge
     ['Bundles','bundles',['Opening a bundle is now a box that shakes, glows up through the rarities inside and bursts open.',
       'New at the Bazaar: the Set Satchel (three pieces of one set), the Weapon Crate (better odds for hammers and crossbows) and the Armour Trunk.',
       'The Golden Merchant brings a different three hoards each visit, from the Gilded Armoury to the Midas Wardrobe, a complete set.']]],
-  s:[['Hotfix 14.1',['The story fades smoothly into the game, the story is told more simply, and the generals stay hidden as dark shapes.','Unlocks are spread across more levels, and only one new-feature spotlight appears each time you come back to camp.','The Level Road lists every unlock for each level, sorted by kind, and the cloud now fully hides everything after the next level.','Training bonuses now add up, and you can see where every bit comes from by tapping the XP bonus in the Training Yard.','Fruit Smash fires fruit from bushes instead of cannons. Combo goals now complete as soon as your combo reaches the number.','The Talisman Museum is a slim bar in camp. Captives on the map sit beside the region name, and the map no longer names each region\'s foes and bosses.','A smoother walk with fewer dust puffs, and the Block lesson explains Parry.']],
+  s:[['Hotfix 14.2',['Settings closes properly again.','Fruit Smash: the teacups are bombs again. Never slash them; let them fly past.','Quests point to the new unlock levels, and the new story quests sit where they belong in the list.','When you level up, what you just unlocked (like the Market) is shown as soon as you get back to camp. New rarities and chests are listed on the Level Road and the results screen instead of popping up.']],
+    ['Hotfix 14.1',['The story fades smoothly into the game, the story is told more simply, and the generals stay hidden as dark shapes.','Unlocks are spread across more levels, and only one new-feature spotlight appears each time you come back to camp.','The Level Road lists every unlock for each level, sorted by kind, and the cloud now fully hides everything after the next level.','Training bonuses now add up, and you can see where every bit comes from by tapping the XP bonus in the Training Yard.','Fruit Smash fires fruit from bushes instead of cannons. Combo goals now complete as soon as your combo reaches the number.','The Talisman Museum is a slim bar in camp. Captives on the map sit beside the region name, and the map no longer names each region\'s foes and bosses.','A smoother walk with fewer dust puffs, and the Block lesson explains Parry.']],
     ['Combat',['You now walk towards the foes. Foes walk in to take their places when they appear.','Rarities open with your level: uncommon at 1, rare at 2, epic at 4, legendary at 7 and Mythic at 40. They show on the Level Road.','Better chests open with your level too: iron at 3, silver at 6, gold at 10 and royal at 15.','Fame: beat guardians and bosses to earn it. Fame ranks give cheaper merchants, more gold and more XP.']],
     ['Camp',['The Talisman Museum is a building in camp. New and ranked-up talismans no longer pop up: the Museum shows a badge and highlights them inside. Switch it to a button in Settings.','The Training Yard has a favourites row once every drill is open, and the list folds away with an arrow.','A red dot on your level bar after a level-up, with the new unlocks highlighted on the Level Road.','The Level Road and the expedition map only show the next unlock. The clouds over the rest are much bigger.']],
     ['Everything else',['A new sound engine: layered sounds with reverb, training sounds that climb with your combo, and heavy special attacks. Volume control in Settings.','Six fonts to choose from in Settings.','Achievements for loot now wait until the loot is revealed.','16 new achievements and 6 new quests.','Patch notes now open with an overview, then the details with pictures.']]]};
@@ -9661,7 +9668,10 @@ function notes14(p){return`<div class="nhero"><p class="eyebrow">${p.t}</p><h3>$
 /* ================= Update 14 hotfix ================= */
 /* Only one new-feature spotlight per return to camp, so new heroes are not flooded */
 let SPOT_N=0;
-{const su=showUnlocks;showUnlocks=function(){if(save&&curScreen()==='camp'&&SPOT_N>=1){const f=FEATURES.find(x=>!save.seen[x.id]&&x.on());if(f)return}su();const sp=$('#spot');if(sp&&!sp.hidden)SPOT_N++}}
+/* Things you just unlocked by levelling or progressing always show straight away, first; extras wait their turn */
+const SPOT_PRI=f=>f.id.startsWith('lv_')||['pack','market','house','farm','road','row2','row3','row4','row5','altar','parry','frost','storm','imbue','museum','menagerie','talis'].includes(f.id);
+{const pri=FEATURES.filter(SPOT_PRI),rest=FEATURES.filter(f=>!SPOT_PRI(f));FEATURES.length=0;FEATURES.push(...pri,...rest)}
+{const su=showUnlocks;showUnlocks=function(){if(save&&curScreen()==='camp'&&SPOT_N>=1){const f=FEATURES.find(x=>!save.seen[x.id]&&x.on());if(f&&!SPOT_PRI(f))return}const f0=save&&FEATURES.find(x=>!save.seen[x.id]&&x.on());su();const sp=$('#spot');if(sp&&!sp.hidden&&f0&&!SPOT_PRI(f0))SPOT_N++}}
 {const gc=goCamp;goCamp=function(){SPOT_N=0;return gc.apply(this,arguments)}}
 {const fe=id=>FEATURES.find(F=>F.id===id);
   const f1=fe('folk14');if(f1)f1.on=()=>NPCS.some(n=>(n.kind==='trainer'||n.kind==='helper'||n.kind==='hidden')&&npcHas(n.id));
@@ -9691,6 +9701,28 @@ openRoad=function(){const lv=save.lvl,seen=save.lvSeen||1,groups={};for(const L 
   if(ahead.length>1)h+=`<div class="rcloud2">${[[0,20,260],[22,0,300],[48,25,280],[72,5,300],[90,30,240],[10,60,280],[40,65,320],[75,60,280]].map(([x,y,r],i)=>`<i style="left:${x-10}%;top:${y-15}%;width:${r}px;height:${r*.7}px;animation-delay:${-i*1.3}s"></i>`).join('')}<p>The rest of the road is lost in cloud.<small>Reach level ${nx} to see what comes after.</small></p></div>`;
   h+=`</div>`;modal({title:'Level road',body:h,wide:true,buttons:[{label:'Close'}]});save.lvSeen=lv;persist();renderCamp();
   setTimeout(()=>{const e=$('#m-body .rlvl.fresh')||$('#m-body .rlvl.here');if(e)e.scrollIntoView({block:'center'})},40)};
+
+/* ---------- Quests follow the new unlock levels, and the new ones sit where they belong ---------- */
+{const QN0=QUESTS.map(q=>q.n),Q=n=>QUESTS.find(q=>q.n===n),L=id=>LVR[id]?LVR[id].lv:'?';
+  const set=(n,d)=>{const q=Q(n);if(q)q.d=d};
+  set('Stake a claim','Reach level '+L('house')+', then clear the land at your Homestead.');
+  set('Learn a skill','At level '+L('skilltree')+' the Skill Tree opens from the Skills button by your name. Learn a skill: it goes straight into slot Q.');
+  set('Visit the market','Buy gear from the Blacksmith in the Market.');
+  set('Lucky dip','Open a bundle at the Curio Bazaar in the Market. It opens at level '+L('bazaar')+'.');
+  set('Five steps home','Build 5 Homestead steps and reach level '+L('farm')+' to open the Farm.');
+  set('A new friend','Hatch a pet at the Menagerie (level '+L('menagerie')+') and take it into battle from the Farm.');
+  set('Into the dark','Clear a dungeon. From level '+L('dungeon')+' one opens on the road every few expeditions.');
+  set('Forge a rune','At level '+L('enchanter')+' the Enchanter opens. Imbue a weapon or armour with an element there.');
+  set('Cold steel','Defeat a foe with Frost magic (level '+L('frost')+'). Switch elements in battle with E.');
+  set('Fire the cannon','Build the Tower cannon at your Homestead.');
+  const order=[['A hard lesson',null],['Rank up','Steady aim'],['Iron and up','New disciplines'],['Dressed to match','Star power'],['Free Brann','Into the marsh'],['Off the beaten path','Rest the dead']];
+  for(const[n,after]of order){const i=QUESTS.findIndex(q=>q.n===n);if(i<0)continue;const[q]=QUESTS.splice(i,1);const j=after?QUESTS.findIndex(x=>x.n===after)+1:0;QUESTS.splice(Math.max(0,j),0,q)}
+  /* keep everyone on the quest they were on */
+  const fix=s=>{if(!s||s.q14)return;if(!s.started){s.q14=1;return}const nm=QN0[s.qClaimed];if(nm){const j=QUESTS.findIndex(q=>q.n===nm);if(j>=0)s.qClaimed=j}else s.qClaimed=QUESTS.length;s.q14=1};
+  const bt=boot;boot=function(data){bt(data);fix(save);persist();try{renderQuest()}catch(e){}};
+  const sw=switchSlot;switchSlot=function(i){sw(i);fix(save);persist()}}
+/* New rarities and chests are listed on the Level Road and in the battle results; they do not need a spotlight too */
+for(const F of FEATURES)if(/^lv_(r_|c_|vendor_q)/.test(F.id))F.on=()=>false;
 /* ================= Update 14: a new sound engine =================
    Every sound is a few layers (tones and filtered noise) through one bus with a compressor and a little reverb.
    In training, hits climb in pitch with the combo and every 10 combo plays a rising chord. */
